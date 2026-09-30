@@ -1,0 +1,31 @@
+# Credenciales y secretos (no subir a git)
+.env
+.env.local
+.env.*.local
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Excel temporales
+~$*.xlsx
+~$*.xls
+planes-unificados/

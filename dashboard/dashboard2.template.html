@@ -1,0 +1,1284 @@
+<title>Plan y Minuta EE4A</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+/* Estética tableroVentas Espert: sidebar chocolate→negro con dorado institucional (PANTONE 8334C),
+   contenido gris claro con cards blancas / gray-900 en dark. Layout: sidebar fijo + contenido. */
+:root{
+  --gold:#A48242; --gold-light:#C4A866; --gold-active:#D4BE8A;
+  --page:#f9fafb; --surface:#ffffff; --subtle:#f3f4f6;
+  --ink:#111827; --ink-2:#6b7280; --muted:#9ca3af;
+  --grid:#e5e7eb; --baseline:#d1d5db; --border:#e5e7eb;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+  --good:#0ca30c; --warn:#A48242; --crit:#d03b3b;
+  --good-text:#006300; --warn-text:#7A6132;
+  --chip:#f3f4f6;
+  --seq1:#cde2fb; --seq2:#9ec5f4; --seq3:#6da7ec; --seq4:#3987e5; --seq5:#256abf; --seq6:#184f95;
+  --div-neu:#e5e7eb;
+  --shadow:0 1px 3px 0 rgb(0 0 0/.1),0 1px 2px -1px rgb(0 0 0/.1);
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --page:#030712; --surface:#111827; --subtle:#1f2937;
+    --ink:#f9fafb; --ink-2:#9ca3af; --muted:#6b7280;
+    --grid:#1f2937; --baseline:#374151; --border:#374151;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+    --gold:#C4A866; --good-text:#0ca30c; --warn-text:#C4A866;
+    --chip:#1f2937; --div-neu:#374151;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --page:#030712; --surface:#111827; --subtle:#1f2937;
+  --ink:#f9fafb; --ink-2:#9ca3af; --muted:#6b7280;
+  --grid:#1f2937; --baseline:#374151; --border:#374151;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --gold:#C4A866; --good-text:#0ca30c; --warn-text:#C4A866;
+  --chip:#1f2937; --div-neu:#374151;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--page); color:var(--ink); font-family:var(--body); margin:0; padding:0; font-size:14px; -webkit-text-size-adjust:100%}
+/* ---- sidebar (siempre oscuro, como la app) ---- */
+.sb{position:fixed; top:0; bottom:0; left:0; width:224px; z-index:30; display:flex; flex-direction:column;
+  background:linear-gradient(to bottom,#23190B,#150F05); color:#fff; padding-top:env(safe-area-inset-top,0px)}
+.sb .brand{padding:20px 18px 14px; border-bottom:1px solid rgba(196,168,102,.2)}
+.sb .brand .b1{font-size:15px; font-weight:800; letter-spacing:.3px}
+.sb .brand .b2{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:#C4A866; margin-top:3px}
+.sb nav{flex:1; overflow-y:auto; padding:10px 8px; scrollbar-width:none; display:flex; flex-direction:column; gap:3px}
+.sb nav::-webkit-scrollbar{display:none}
+.sb nav button{display:flex; align-items:center; gap:10px; width:100%; border:0; text-align:left; cursor:pointer;
+  background:transparent; color:rgba(255,255,255,.72); font:inherit; font-size:14px; font-weight:500;
+  padding:9px 12px; border-radius:9px}
+.sb nav button:hover{background:rgba(255,255,255,.06)}
+.sb nav button[aria-selected="true"]{background:rgba(164,130,66,.28); color:#fff}
+.sb nav button[aria-selected="true"] .ic{color:#D4BE8A}
+.sb nav button .ic{width:19px; text-align:center; color:rgba(255,255,255,.55); flex-shrink:0; font-size:15px}
+.sb .foot{border-top:1px solid rgba(196,168,102,.2); padding:12px 14px; font-size:11px; color:rgba(255,255,255,.4)}
+.sb .foot .u{display:flex; align-items:center; gap:9px; margin-bottom:8px}
+.sb .foot .av{width:30px; height:30px; border-radius:50%; background:#A48242; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px}
+.sb .foot .un{color:rgba(255,255,255,.85); font-size:12.5px; font-weight:500}
+.sb .foot .ur{color:rgba(196,168,102,.8); font-size:11px}
+/* ---- contenido ---- */
+.main{margin-left:224px; padding:18px clamp(14px,2.5vw,28px) 28px; padding-top:calc(18px + env(safe-area-inset-top,0px))}
+.mtop{display:none}
+@media (max-width:940px){
+  .sb{display:none}
+  .main{margin-left:0}
+  .mtop{display:block; position:sticky; top:env(safe-area-inset-top,0px); z-index:20; margin:-18px calc(-1*clamp(14px,2.5vw,28px)) 12px;
+    background:linear-gradient(to bottom,#23190B,#1A1207); color:#fff; padding:12px 16px 0}
+  .mtop .b1{font-size:15px; font-weight:800}
+  .mtop .b2{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#C4A866; margin-top:1px}
+  .mtop .mtabs{display:flex; gap:2px; overflow-x:auto; margin-top:8px; scrollbar-width:none}
+  .mtop .mtabs::-webkit-scrollbar{display:none}
+  .mtop .mtabs button{border:0; background:transparent; color:rgba(255,255,255,.7); font:inherit; font-size:13.5px; font-weight:600;
+    padding:8px 11px 10px; cursor:pointer; border-bottom:2.5px solid transparent; white-space:nowrap}
+  .mtop .mtabs button[aria-selected="true"]{color:#fff; border-bottom-color:#D4BE8A}
+}
+.ptitle{font-size:19px; font-weight:700; margin:0 0 2px}
+.psub{font-size:12.5px; color:var(--ink-2); margin-bottom:12px}
+/* ---- filtros ---- */
+.fbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.seg{display:flex; gap:3px; background:var(--chip); border:1px solid var(--border); border-radius:9px; padding:3px}
+.seg button{border:0; background:transparent; color:var(--ink-2); font:inherit; font-size:12.5px; padding:4px 10px; border-radius:6px; cursor:pointer; white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface); color:var(--ink); font-weight:600; box-shadow:var(--shadow)}
+button:focus-visible, input:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.dates{display:flex; gap:6px; align-items:center; font-size:12.5px; color:var(--ink-2)}
+.dates input{font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface); border:1px solid var(--border); border-radius:7px; padding:4px 7px}
+.ms{position:relative}
+.ms > button{display:flex; align-items:center; gap:6px; font:inherit; font-size:12.5px; color:var(--ink); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:5px 11px; cursor:pointer; box-shadow:var(--shadow)}
+.ms > button .n{color:var(--ink-2)}
+.ms > button::after{content:"▾"; font-size:10px; color:var(--muted)}
+.ms .pop{position:absolute; top:calc(100% + 5px); left:0; z-index:25; min-width:235px; max-height:330px; overflow:auto; background:var(--surface); border:1px solid var(--border); border-radius:10px; box-shadow:0 8px 26px rgba(0,0,0,.22); padding:8px}
+.ms .pop input[type="search"]{width:100%; font:inherit; font-size:12.5px; background:var(--page); color:var(--ink); border:1px solid var(--border); border-radius:7px; padding:5px 8px; margin-bottom:6px}
+.ms .pop .acts{display:flex; gap:12px; font-size:12px; margin-bottom:5px}
+.ms .pop .acts button{border:0; background:none; color:var(--gold); cursor:pointer; font:inherit; font-size:12px; padding:0; font-weight:600}
+.ms .pop label{display:flex; gap:7px; align-items:center; padding:4px 3px; border-radius:6px; cursor:pointer; font-size:13px}
+.ms .pop label:hover{background:var(--chip)}
+.ms .pop .grp{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin:7px 0 2px; font-weight:600}
+.ms .pop input[type="checkbox"]{accent-color:var(--gold); margin:0}
+.fchips{display:flex; gap:4px}
+.fchip{font-size:12.5px; border:1px solid var(--border); background:var(--surface); color:var(--ink-2); border-radius:20px; padding:4px 12px; cursor:pointer; font-family:var(--body)}
+.fchip[aria-pressed="true"]{background:var(--gold); border-color:var(--gold); color:#fff; font-weight:600}
+.cmp{display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-2); cursor:pointer; user-select:none}
+.cmp input{accent-color:var(--gold); margin:0}
+/* chips de filtros activos */
+.active-f{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:8px}
+.af{display:inline-flex; align-items:center; gap:6px; font-size:12px; background:var(--chip); border:1px solid var(--border); color:var(--ink-2); border-radius:20px; padding:3px 6px 3px 11px}
+.af b{color:var(--ink); font-weight:600}
+.af button{border:0; background:transparent; color:var(--muted); cursor:pointer; font-size:13px; line-height:1; padding:2px 4px; border-radius:50%}
+.af button:hover{color:var(--crit)}
+.af-clear{border:0; background:none; color:var(--gold); font:inherit; font-size:12px; font-weight:600; cursor:pointer}
+.rango{font-size:12px; color:var(--muted); margin-top:7px}
+/* ---- insights ---- */
+.insights{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin-top:14px}
+.insight{background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--muted); border-radius:10px; padding:10px 13px; box-shadow:var(--shadow)}
+.insight.crit{border-left-color:var(--crit)} .insight.warn{border-left-color:var(--gold)}
+.insight.ok{border-left-color:var(--good)} .insight.info{border-left-color:var(--s1)}
+.insight .i-tag{font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em}
+.insight.crit .i-tag{color:var(--crit)} .insight.warn .i-tag{color:var(--warn-text)}
+.insight.ok .i-tag{color:var(--good-text)} .insight.info .i-tag{color:var(--s1)}
+.insight .i-txt{font-size:12.5px; margin-top:3px; color:var(--ink)}
+.insight .i-sub{font-size:11.5px; color:var(--ink-2); margin-top:2px}
+/* ---- kpis ---- */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:10px; margin-top:14px}
+.kpi{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; position:relative; overflow:hidden; min-width:0; box-shadow:var(--shadow)}
+.kpi .k-label{font-size:12px; color:var(--ink-2); font-weight:500}
+.kpi .k-val{font-weight:800; font-size:25px; line-height:1.15; margin-top:3px; letter-spacing:-.02em}
+.kpi .k-sub{font-size:11.5px; color:var(--muted); margin-top:2px}
+.kpi .delta{font-size:12px; font-weight:600; margin-top:1px}
+.delta.up{color:var(--good-text)} .delta.down{color:var(--crit)} .delta.flat{color:var(--muted)}
+.kpi svg.spark{position:absolute; right:8px; bottom:8px; opacity:.9}
+/* ---- cards ---- */
+.grid{display:grid; gap:12px; margin-top:14px}
+.g2{grid-template-columns:1fr 1fr}
+@media (max-width:1150px){ .g2{grid-template-columns:1fr} }
+.card{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:15px 15px 11px; min-width:0; box-shadow:var(--shadow)}
+.card.full{grid-column:1 / -1}
+.card h2{font-weight:700; font-size:15.5px; margin:0}
+.card .csub{font-size:12.5px; color:var(--ink-2); margin-top:2px}
+.chead{display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap}
+.chead .tools{display:flex; gap:6px; flex-wrap:wrap}
+.tbtn{border:1px solid var(--border); background:transparent; color:var(--ink-2); border-radius:7px; font:inherit; font-size:12px; padding:3.5px 10px; cursor:pointer}
+.tbtn[aria-pressed="true"]{background:var(--chip); color:var(--ink); font-weight:600}
+.legend{display:flex; flex-wrap:wrap; gap:11px; margin-top:8px; font-size:12.5px; color:var(--ink-2)}
+.legend .it{display:flex; align-items:center; gap:6px}
+.legend .sw{width:10px; height:10px; border-radius:3px; flex-shrink:0}
+.legend .sw.line{height:3px; border-radius:2px; width:14px}
+.plot{margin-top:8px; min-width:0}
+.plot svg{display:block; width:100%; height:auto}
+svg text{font-family:var(--body)}
+.axis-t{fill:var(--muted); font-size:11px}
+.dlab{fill:var(--ink-2); font-size:11px; font-variant-numeric:tabular-nums}
+/* ---- tablas ---- */
+.tblwrap{overflow-x:auto; margin-top:8px}
+table.dt{border-collapse:collapse; font-size:12.5px; width:100%; min-width:460px}
+table.dt th{text-align:left; color:var(--ink-2); font-weight:600; border-bottom:1px solid var(--baseline); padding:6px 10px 6px 0; white-space:nowrap; cursor:pointer; user-select:none}
+table.dt th .arr{font-size:10px; color:var(--gold)}
+table.dt td{border-bottom:1px solid var(--grid); padding:5.5px 10px 5.5px 0; font-variant-numeric:tabular-nums; white-space:nowrap}
+table.dt th.num, table.dt td.num{text-align:right}
+table.dt tr.tot td{font-weight:700; border-top:2px solid var(--baseline)}
+.st{display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600}
+.st .dot{width:8px; height:8px; border-radius:50%}
+.st.ok{color:var(--good-text)} .st.ok .dot{background:var(--good)}
+.st.med{color:var(--warn-text)} .st.med .dot{background:var(--gold)}
+.st.bad{color:var(--crit)} .st.bad .dot{background:var(--crit)}
+/* ---- heatmap ---- */
+.hm{display:grid; gap:2px; margin-top:10px; font-size:11px}
+.hm .cell{border-radius:3px; min-height:22px; display:flex; align-items:center; justify-content:center; color:var(--ink); cursor:default}
+.hm .rowlab{display:flex; align-items:center; justify-content:flex-end; padding-right:7px; color:var(--muted); white-space:nowrap; overflow:hidden}
+.hm .collab{display:flex; align-items:flex-end; justify-content:center; color:var(--muted); padding-bottom:3px}
+.hmleg{display:flex; align-items:center; gap:5px; margin-top:9px; font-size:11.5px; color:var(--ink-2)}
+.hmleg .b{width:22px; height:11px; border-radius:2px}
+/* ---- tooltip ---- */
+#tip{position:fixed; z-index:40; pointer-events:none; background:var(--surface); color:var(--ink);
+  border:1px solid var(--border); border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.2);
+  padding:8px 10px; font-size:12.5px; max-width:280px; display:none}
+#tip .t-h{font-weight:600; margin-bottom:3px}
+#tip .t-r{display:flex; justify-content:space-between; gap:14px}
+#tip .t-r .v{font-variant-numeric:tabular-nums; font-weight:600}
+#tip .t-r .n{display:flex; align-items:center; gap:5px; color:var(--ink-2)}
+#tip .sw{width:8px; height:8px; border-radius:2px; display:inline-block}
+.empty{color:var(--muted); font-size:13px; padding:18px 0}
+footer{color:var(--muted); font-size:12px; margin-top:20px; max-width:100ch}
+@media (prefers-reduced-motion: no-preference){ .seg button,.tbtn,.fchip,.sb nav button{transition:background .12s ease} }
+</style>
+
+<aside class="sb">
+  <div class="brand"><div class="b1">Tabacalera Espert</div><div class="b2">Plan y Minuta · EE4A</div></div>
+  <nav id="nav"></nav>
+  <div class="foot">
+    <div class="u"><div class="av">PM</div><div><div class="un">Producción</div><div class="ur">plan · minuta · EE4A</div></div></div>
+    <div id="sbNote"></div>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="mtop"><div class="b1">Tabacalera Espert</div><div class="b2">Plan y Minuta · EE4A</div><div class="mtabs" id="mnav"></div></div>
+  <h1 class="ptitle" id="ptitle"></h1>
+  <div class="psub" id="psub"></div>
+  <div class="fbar" id="fbar"></div>
+  <div class="active-f" id="activeF"></div>
+  <div class="rango" id="rangeLbl"></div>
+  <div class="insights" id="insights" hidden></div>
+  <div class="kpis" id="kpis"></div>
+  <main id="content"></main>
+  <footer id="foot"></footer>
+</div>
+<div id="tip" role="status"></div>
+
+<script>
+const DATA = __DATA__;
+
+/* ================= helpers ================= */
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const nf  = new Intl.NumberFormat('es-AR');
+const nf1 = new Intl.NumberFormat('es-AR',{maximumFractionDigits:1});
+const fmt = n => nf.format(Math.round(n));
+const fmtK = n => n>=1e6 ? nf1.format(n/1e6)+' M' : n>=10000 ? nf.format(Math.round(n/1000))+' k' : fmt(n);
+const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const dShort = s => `${+s.slice(8,10)} ${MES[+s.slice(5,7)-1]}`;
+const dLong  = s => `${+s.slice(8,10)} ${MES[+s.slice(5,7)-1]} ${s.slice(0,4)}`;
+const mLbl   = s => `${MES[+s.slice(5,7)-1]} ${s.slice(2,4)}`;
+function weekStart(s){ const d=new Date(s+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()-(d.getUTCDay()+6)%7); return d.toISOString().slice(0,10); }
+function addDays(s,n){ const d=new Date(s+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); }
+function daysBetween(a,b){ return Math.round((new Date(b+'T00:00:00Z')-new Date(a+'T00:00:00Z'))/86400000); }
+const S = el2 => document.createElementNS('http://www.w3.org/2000/svg', el2);
+function svgEl(w,h){ const s=S('svg'); s.setAttribute('viewBox',`0 0 ${w} ${h}`); s.setAttribute('width',w); s.setAttribute('height',h); return s; }
+function el(tag, cls, html){ const e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
+function niceMax(v){ const p=Math.pow(10,Math.floor(Math.log10(v||1))); const n=v/p; const m=n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10; return m*p; }
+function plotW(plot){ return Math.max(300, plot.clientWidth || 600); }
+const sum = a => a.reduce((x,y)=>x+y,0);
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+const allDates = DATA.plan.concat(DATA.real).map(r=>r[0]).concat(DATA.prod.map(r=>r[0])).concat(DATA.tabaco.map(r=>r[0]));
+const MINDATE = allDates.reduce((m,d)=>d<m?d:m,'9999');
+const MAXDATE = allDates.reduce((m,d)=>d>m?d:m,'0');
+const MAX_MINUTA = DATA.prod.reduce((m,r)=>r[0]>m?r[0]:m,'0');
+
+/* ================= estado + persistencia ================= */
+const MARCA_IDS = [...new Set(DATA.plan.concat(DATA.real).map(r=>r[1]))].sort((a,b)=>(DATA.marcas[a]||'').localeCompare(DATA.marcas[b]||''));
+const MAQ_IDS = [...new Set(DATA.rend.map(r=>r[1]).concat(DATA.prod.map(r=>r[1])))]
+  .sort((a,b)=>(DATA.tipoMaquina[a]||'').localeCompare(DATA.tipoMaquina[b]||'')||(DATA.maquinas[a]||'').localeCompare(DATA.maquinas[b]||''));
+const PERIODS = [{lbl:'4 sem',w:4},{lbl:'12 sem',w:12},{lbl:'26 sem',w:26},{lbl:'52 sem',w:52},{lbl:'Todo',w:null}];
+const F = { preset:PERIODS[1], from:null, to:null,
+  marcas:new Set(MARCA_IDS), maqs:new Set(MAQ_IDS), turnos:new Set([0,1,2]), compare:true };
+(function restore(){
+  try{
+    const s=JSON.parse(lsGet('pm-filters')||'null'); if(!s) return;
+    if(typeof s.preset==='number' && PERIODS[s.preset]) F.preset=PERIODS[s.preset];
+    if(s.from&&s.to&&s.from>=MINDATE&&s.to<=MAXDATE){ F.from=s.from; F.to=s.to; }
+    if(Array.isArray(s.marcas)&&s.marcas.length) F.marcas=new Set(s.marcas.filter(id=>MARCA_IDS.includes(id)));
+    if(Array.isArray(s.maqs)&&s.maqs.length) F.maqs=new Set(s.maqs.filter(id=>MAQ_IDS.includes(id)));
+    if(Array.isArray(s.turnos)&&s.turnos.length) F.turnos=new Set(s.turnos.filter(t=>t>=0&&t<=2));
+    if(typeof s.compare==='boolean') F.compare=s.compare;
+    if(!F.marcas.size) F.marcas=new Set(MARCA_IDS);
+    if(!F.maqs.size) F.maqs=new Set(MAQ_IDS);
+    if(!F.turnos.size) F.turnos=new Set([0,1,2]);
+  }catch(e){}
+})();
+function persist(){
+  lsSet('pm-filters', JSON.stringify({preset:PERIODS.indexOf(F.preset), from:F.from, to:F.to,
+    marcas:[...F.marcas], maqs:[...F.maqs], turnos:[...F.turnos], compare:F.compare}));
+}
+let TAB = (location.hash||'').replace('#','') || lsGet('pm-tab') || 'resumen';
+
+function rango(){
+  if (F.from && F.to) return [F.from, F.to];
+  if (!F.preset.w) return [MINDATE, MAXDATE];
+  return [addDays(weekStart(MAXDATE), -7*(F.preset.w-1)), MAXDATE];
+}
+function rangoPrev(){ const [a,b]=rango(); const len=daysBetween(a,b)+1; return [addDays(a,-len), addDays(a,-1)]; }
+const inR = (f,R) => f>=R[0] && f<=R[1];
+const fPlan = R => DATA.plan.filter(r=>inR(r[0],R) && F.marcas.has(r[1]));
+const fReal = R => DATA.real.filter(r=>inR(r[0],R) && F.marcas.has(r[1]));
+const fRend = R => DATA.rend.filter(r=>inR(r[0],R) && F.maqs.has(r[1]) && F.turnos.has(r[2]));
+const fProd = R => DATA.prod.filter(r=>inR(r[0],R) && F.maqs.has(r[1]) && F.turnos.has(r[2]));
+const fTab  = R => DATA.tabaco.filter(r=>inR(r[0],R));
+function weeksIn(R){ const out=[]; let w=weekStart(R[0]); const last=weekStart(R[1]); while(w<=last){ out.push(w); w=addDays(w,7);} return out; }
+function byWeek(rows,vi){ const m=new Map(); rows.forEach(r=>{ const w=weekStart(r[0]); m.set(w,(m.get(w)||0)+r[vi]); }); return m; }
+
+/* ================= tooltip ================= */
+const tip = document.getElementById('tip');
+function showTip(html,ev){
+  tip.innerHTML=html; tip.style.display='block';
+  const r=tip.getBoundingClientRect();
+  let x=ev.clientX+14, y=ev.clientY+14;
+  if(x+r.width>innerWidth-8) x=ev.clientX-r.width-14;
+  if(y+r.height>innerHeight-8) y=ev.clientY-r.height-14;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
+}
+const hideTip = ()=> tip.style.display='none';
+const tipRow=(col,name,val)=>`<div class="t-r"><span class="n"><span class="sw" style="background:${col}"></span>${name}</span><span class="v">${val}</span></div>`;
+
+/* ================= nav ================= */
+const TABS=[['resumen','Resumen','▦'],['planreal','Plan vs Real','▤'],['marcas','Marcas','✦'],['maquinas','Máquinas','⚙'],['turnos','Turnos','◔'],['tabaco','Tabaco','☘']];
+const TABSUB={resumen:'Cumplimiento, producción y eficiencia del período',
+  planreal:'Plan contra real: evolución, cumplimiento por marca y semana',
+  marcas:'Ranking, evolución y detalle por marca',
+  maquinas:'Eficiencia contra objetivo por máquina y por tipo',
+  turnos:'Producción de la minuta por turno (TD · TJ · TN)',
+  tabaco:'Consumo de tabaco: teórico contra real'};
+function buildNav(){
+  const nav=document.getElementById('nav'), mnav=document.getElementById('mnav');
+  nav.innerHTML=''; mnav.innerHTML='';
+  TABS.forEach(([id,lbl,ic])=>{
+    const b=el('button',null,`<span class="ic">${ic}</span><span>${lbl}</span>`);
+    b.setAttribute('aria-selected', id===TAB); b.dataset.tab=id;
+    b.onclick=()=>{ TAB=id; lsSet('pm-tab',id); history.replaceState(null,'','#'+id); renderAll(); };
+    nav.appendChild(b);
+    const m=el('button',null,lbl); m.setAttribute('aria-selected', id===TAB);
+    m.onclick=b.onclick; mnav.appendChild(m);
+  });
+  document.getElementById('sbNote').textContent=`Datos al ${dLong(MAXDATE)}`;
+}
+
+/* ================= filtros ================= */
+function multiSelect({label, items, groups, sel, onChange}){
+  const root=el('div','ms');
+  const btn=el('button'); root.appendChild(btn);
+  const paint=()=>{ btn.innerHTML = sel.size===items.length
+      ? `${label} <span class="n">· todas (${items.length})</span>`
+      : `${label} <span class="n">· ${sel.size} de ${items.length}</span>`; };
+  paint();
+  let pop=null;
+  const close=()=>{ if(pop){ pop.remove(); pop=null; document.removeEventListener('click',onDoc,true);} };
+  const onDoc=e=>{ if(!root.contains(e.target)) close(); };
+  btn.onclick=()=>{
+    if(pop){ close(); return; }
+    pop=el('div','pop');
+    const q=el('input'); q.type='search'; q.placeholder='Buscar…'; pop.appendChild(q);
+    const acts=el('div','acts');
+    const bAll=el('button',null,'Todas'), bNone=el('button',null,'Ninguna');
+    acts.append(bAll,bNone); pop.appendChild(acts);
+    const list=el('div'); pop.appendChild(list);
+    const draw=()=>{
+      list.innerHTML=''; const term=q.value.toLowerCase(); let lastGrp=null;
+      items.forEach(it=>{
+        if(term && !it.name.toLowerCase().includes(term)) return;
+        if(groups && it.grp!==lastGrp){ lastGrp=it.grp; list.appendChild(el('div','grp',it.grp)); }
+        const lab=el('label'); const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=sel.has(it.id);
+        cb.onchange=()=>{ cb.checked?sel.add(it.id):sel.delete(it.id); paint(); onChange(); };
+        lab.append(cb, document.createTextNode(it.name)); list.appendChild(lab);
+      });
+    };
+    bAll.onclick=()=>{ items.forEach(i=>sel.add(i.id)); paint(); onChange(); draw(); };
+    bNone.onclick=()=>{ sel.clear(); paint(); onChange(); draw(); };
+    q.oninput=draw; draw();
+    root.appendChild(pop);
+    setTimeout(()=>document.addEventListener('click',onDoc,true),0);
+    q.focus();
+  };
+  return root;
+}
+function buildFilters(){
+  const bar=document.getElementById('fbar'); bar.innerHTML='';
+  const seg=el('div','seg');
+  PERIODS.forEach(p=>{
+    const b=el('button',null,p.lbl);
+    b.setAttribute('aria-pressed', !F.from && F.preset===p);
+    b.onclick=()=>{ F.preset=p; F.from=F.to=null; renderAll(); };
+    seg.appendChild(b);
+  });
+  bar.appendChild(seg);
+  const dates=el('div','dates');
+  const d1=document.createElement('input'), d2=document.createElement('input');
+  d1.type=d2.type='date'; d1.id='f-desde'; d2.id='f-hasta';
+  d1.min=d2.min=MINDATE; d1.max=d2.max=MAXDATE;
+  if(F.from){ d1.value=F.from; d2.value=F.to; }
+  const onDate=()=>{ if(d1.value&&d2.value&&d1.value<=d2.value){ F.from=d1.value; F.to=d2.value; renderAll(); } };
+  d1.onchange=d2.onchange=onDate;
+  dates.append(document.createTextNode('o de '), d1, document.createTextNode(' a '), d2);
+  bar.appendChild(dates);
+  bar.appendChild(multiSelect({label:'Marcas',
+    items:MARCA_IDS.map(id=>({id,name:DATA.marcas[id]||('Marca '+id)})), sel:F.marcas, onChange:renderAll}));
+  bar.appendChild(multiSelect({label:'Máquinas', groups:true,
+    items:MAQ_IDS.map(id=>({id,name:DATA.maquinas[id]||('Máq. '+id),grp:DATA.tipoMaquina[id]||'Otras'})), sel:F.maqs, onChange:renderAll}));
+  const chips=el('div','fchips');
+  DATA.turnos.forEach((t,i)=>{
+    const c=el('button','fchip',t);
+    c.setAttribute('aria-pressed', F.turnos.has(i));
+    c.title='Turno '+t;
+    c.onclick=()=>{ F.turnos.has(i)?F.turnos.delete(i):F.turnos.add(i); if(!F.turnos.size)F.turnos.add(i); renderAll(); };
+    chips.appendChild(c);
+  });
+  bar.appendChild(chips);
+  const cmp=el('label','cmp');
+  const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=F.compare; cb.id='f-cmp';
+  cb.onchange=()=>{ F.compare=cb.checked; renderAll(); };
+  cmp.append(cb, document.createTextNode('vs período anterior'));
+  bar.appendChild(cmp);
+}
+function buildActiveChips(){
+  const box=document.getElementById('activeF'); box.innerHTML='';
+  const chips=[];
+  if(F.from) chips.push({txt:`Fechas: <b>${dShort(F.from)} – ${dShort(F.to)}</b>`, clear:()=>{F.from=F.to=null;}});
+  if(F.marcas.size<MARCA_IDS.length){
+    const names=[...F.marcas].map(id=>DATA.marcas[id]||id);
+    chips.push({txt:`Marcas: <b>${names.length<=2?names.join(', '):names.length+' seleccionadas'}</b>`, clear:()=>{F.marcas=new Set(MARCA_IDS);}});
+  }
+  if(F.maqs.size<MAQ_IDS.length){
+    const names=[...F.maqs].map(id=>DATA.maquinas[id]||id);
+    chips.push({txt:`Máquinas: <b>${names.length<=2?names.join(', '):names.length+' seleccionadas'}</b>`, clear:()=>{F.maqs=new Set(MAQ_IDS);}});
+  }
+  if(F.turnos.size<3) chips.push({txt:`Turnos: <b>${[...F.turnos].map(i=>DATA.turnos[i]).join(', ')}</b>`, clear:()=>{F.turnos=new Set([0,1,2]);}});
+  if(!chips.length){ box.hidden=true; return; }
+  box.hidden=false;
+  chips.forEach(c=>{
+    const chip=el('span','af',c.txt);
+    const x=el('button',null,'×'); x.setAttribute('aria-label','Quitar filtro');
+    x.onclick=()=>{ c.clear(); renderAll(); };
+    chip.appendChild(x); box.appendChild(chip);
+  });
+  const clr=el('button','af-clear','Limpiar todo');
+  clr.onclick=()=>{ F.from=F.to=null; F.marcas=new Set(MARCA_IDS); F.maqs=new Set(MAQ_IDS); F.turnos=new Set([0,1,2]); renderAll(); };
+  box.appendChild(clr);
+}
+
+/* ================= insights (solo Resumen) ================= */
+function buildInsights(){
+  const box=document.getElementById('insights');
+  if(TAB!=='resumen'){ box.hidden=true; return; }
+  const R=rango();
+  const out=[];
+  const plan=sum(fPlan(R).map(r=>r[2])), real=sum(fReal(R).map(r=>r[2]));
+  if(plan){
+    const c=real/plan*100;
+    out.push(c>=100? {sev:'ok', tag:'Positiva', txt:`Plan cumplido al ${nf1.format(c)}%`, sub:`${fmt(real)} reales sobre ${fmt(plan)} planificadas`}
+      : c>=90? {sev:'warn', tag:'Atención', txt:`Plan al ${nf1.format(c)}%`, sub:`faltaron ${fmt(plan-real)} unidades para el plan`}
+      : {sev:'crit', tag:'Crítica', txt:`Plan al ${nf1.format(c)}%`, sub:`faltaron ${fmt(plan-real)} unidades para el plan`});
+  }
+  // peor marca con plan relevante
+  const agg=new Map();
+  fPlan(R).forEach(r=>{const a=agg.get(r[1])||{p:0,re:0}; a.p+=r[2]; agg.set(r[1],a);});
+  fReal(R).forEach(r=>{const a=agg.get(r[1])||{p:0,re:0}; a.re+=r[2]; agg.set(r[1],a);});
+  const conPlan=[...agg.entries()].filter(([,a])=>a.p>=100).map(([id,a])=>({id,c:a.re/a.p*100,gap:a.p-a.re}));
+  if(conPlan.length){
+    const peor=conPlan.sort((x,y)=>x.c-y.c)[0];
+    if(peor.c<90) out.push({sev:'crit', tag:'Marca rezagada', txt:`${DATA.marcas[peor.id]||peor.id} al ${nf1.format(peor.c)}% del plan`, sub:`gap de ${fmt(peor.gap)} unidades`});
+    const mejor=conPlan.sort((x,y)=>y.c-x.c)[0];
+    if(mejor.c>=110) out.push({sev:'ok', tag:'Sobre plan', txt:`${DATA.marcas[mejor.id]||mejor.id} al ${nf1.format(mejor.c)}%`, sub:`${fmt(-mejor.gap)} unidades por encima del plan`});
+  }
+  // máquina más lejos del objetivo
+  const rend=fRend(R), am=new Map();
+  rend.forEach(r=>{const a=am.get(r[1])||{s:0,n:0,obj:null}; a.s+=r[3]; a.n++; if(r[4]!=null)a.obj=r[4]; am.set(r[1],a);});
+  const gaps=[...am.entries()].filter(([,a])=>a.obj!=null).map(([id,a])=>({id,g:a.s/a.n-a.obj}));
+  if(gaps.length){
+    const peor=gaps.sort((x,y)=>x.g-y.g)[0];
+    if(peor.g<-5) out.push({sev:'warn', tag:'Eficiencia', txt:`${DATA.maquinas[peor.id]||peor.id}: ${nf1.format(peor.g)} pts bajo objetivo`, sub:'promedio del período vs objetivo de minuta'});
+  }
+  // tabaco
+  const tabb=fTab(R).filter(r=>r[1]&&r[2]);
+  const teo=sum(tabb.map(r=>r[1])), reo=sum(tabb.map(r=>r[2]));
+  if(teo){
+    const d=(reo-teo)/teo*100;
+    if(d>2) out.push({sev:'warn', tag:'Tabaco', txt:`Consumo +${nf1.format(d)}% sobre teórico`, sub:`${fmt(reo-teo)} kg de exceso en el período`});
+    else if(d<=0) out.push({sev:'ok', tag:'Tabaco', txt:`Consumo ${nf1.format(d)}% vs teórico`, sub:'sin exceso de tabaco en el período'});
+  }
+  if(MAX_MINUTA<addDays(MAXDATE,-21)) out.push({sev:'info', tag:'Dato', txt:`Minutas cargadas hasta ${dLong(MAX_MINUTA)}`, sub:'eficiencia y turnos pueden quedar atrás del plan'});
+  if(!out.length){ box.hidden=true; return; }
+  box.hidden=false; box.innerHTML='';
+  out.slice(0,4).forEach(i=>box.appendChild(el('div','insight '+i.sev,
+    `<div class="i-tag">⚡ ${i.tag}</div><div class="i-txt">${i.txt}</div><div class="i-sub">${i.sub}</div>`)));
+}
+
+/* ================= KPIs ================= */
+function pct(a,b){ return b? a/b*100 : null; }
+function deltaTxt(cur,prev,unit,goodUp=true){
+  if(prev==null||cur==null||!isFinite(prev)) return null;
+  const d=cur-prev;
+  if(Math.abs(d)<0.05) return {cls:'flat', txt:'= sin cambio'};
+  const up=d>0;
+  return {cls:(up===goodUp)?'up':'down', txt:`${up?'▲':'▼'} ${nf1.format(Math.abs(d))}${unit} vs per. ant.`};
+}
+function spark(vals,color){
+  if(vals.length<2 || !vals.some(v=>v)) return null;
+  const w=64,h=22,mx=Math.max(...vals);
+  const s=svgEl(w,h); s.classList.add('spark');
+  const pl=S('polyline');
+  pl.setAttribute('points', vals.map((v,i)=>`${2+i*(w-4)/(vals.length-1)},${h-2-(h-6)*v/(mx||1)}`).join(' '));
+  pl.setAttribute('fill','none'); pl.setAttribute('stroke',color); pl.setAttribute('stroke-width',1.6);
+  s.appendChild(pl);
+  const last=vals[vals.length-1];
+  const c=S('circle'); c.setAttribute('cx',w-2); c.setAttribute('cy',h-2-(h-6)*last/(mx||1)); c.setAttribute('r',2.4); c.setAttribute('fill',color);
+  s.appendChild(c);
+  return s;
+}
+function renderKpis(){
+  const R=rango(), P=rangoPrev();
+  const plan=sum(fPlan(R).map(r=>r[2])), real=sum(fReal(R).map(r=>r[2]));
+  const planP=sum(fPlan(P).map(r=>r[2])), realP=sum(fReal(P).map(r=>r[2]));
+  const rend=fRend(R), rendP=fRend(P);
+  const efic=rend.length?sum(rend.map(r=>r[3]))/rend.length:null;
+  const eficP=rendP.length?sum(rendP.map(r=>r[3]))/rendP.length:null;
+  const objs=rend.filter(r=>r[4]!=null);
+  const obj=objs.length?sum(objs.map(r=>r[4]))/objs.length:null;
+  const prod=sum(fProd(R).map(r=>r[3])), prodP=sum(fProd(P).map(r=>r[3]));
+  const tabb=fTab(R).filter(r=>r[1]&&r[2]);
+  const teo=sum(tabb.map(r=>r[1])), reo=sum(tabb.map(r=>r[2]));
+  const tabP=fTab(P).filter(r=>r[1]&&r[2]);
+  const cump=pct(real,plan), cumpP=pct(realP,planP);
+  const desv=teo?(reo-teo)/teo*100:null;
+  const desvP=(()=>{ const t=sum(tabP.map(r=>r[1])); return t?(sum(tabP.map(r=>r[2]))-t)/t*100:null; })();
+  const weeks=weeksIn(R);
+  const wReal=byWeek(fReal(R),2);
+  const wProd=(()=>{const m=new Map(); fProd(R).forEach(r=>{const w=weekStart(r[0]); m.set(w,(m.get(w)||0)+r[3]);}); return m;})();
+  const wEf=(()=>{const m=new Map(), c=new Map(); rend.forEach(r=>{const w=weekStart(r[0]); m.set(w,(m.get(w)||0)+r[3]); c.set(w,(c.get(w)||0)+1);}); return weeks.map(w=>c.get(w)?m.get(w)/c.get(w):0); })();
+
+  const k=document.getElementById('kpis'); k.innerHTML='';
+  const tile=(label,val,sub,delta,sparkVals,sparkCol,valColor)=>{
+    const d=el('div','kpi');
+    const v=el('div','k-val',val); if(valColor) v.style.color=valColor;
+    d.append(el('div','k-label',label), v);
+    if(F.compare&&delta) d.appendChild(el('div','delta '+delta.cls,delta.txt));
+    d.appendChild(el('div','k-sub',sub));
+    if(sparkVals){ const s=spark(sparkVals,sparkCol); if(s) d.appendChild(s); }
+    k.appendChild(d);
+  };
+  tile('Cumplimiento del plan', cump==null?'—':nf1.format(cump)+'%',
+    plan?`real ${fmt(real)} / plan ${fmt(plan)}`:'sin plan en el período',
+    deltaTxt(cump,cumpP,' pts'), weeks.map(w=>wReal.get(w)||0), css('--s2'),
+    cump==null?null:cump>=100?css('--good-text'):cump>=90?css('--warn-text'):css('--crit'));
+  tile('Producción real (plan)', fmtK(real), 'unidades · marcas seleccionadas',
+    (realP? {cls:real>=realP?'up':'down', txt:`${real>=realP?'▲':'▼'} ${nf1.format(Math.abs(pct(real,realP)-100))}% vs per. ant.`} : null));
+  tile('Plan total', fmtK(plan), 'unidades a producir',
+    (planP? {cls:'flat', txt:`per. ant.: ${fmtK(planP)}`} : null));
+  tile('Eficiencia media', efic==null?'—':nf1.format(efic)+'%',
+    obj!=null?`objetivo prom. ${nf1.format(obj)}% · ${rend.length} reg.`:'sin minutas en el período',
+    deltaTxt(efic,eficP,' pts'), wEf, css('--s1'));
+  tile('Producción minuta', fmtK(prod), 'cigarrillos · máquinas/turnos selecc.',
+    (prodP? {cls:prod>=prodP?'up':'down', txt:`${prod>=prodP?'▲':'▼'} ${nf1.format(Math.abs(pct(prod,prodP)-100))}% vs per. ant.`} : null),
+    weeks.map(w=>wProd.get(w)||0), css('--s3'));
+  tile('Desvío tabaco', desv==null?'—':(desv>0?'+':'')+nf1.format(desv)+'%',
+    teo?`real ${fmt(reo)} kg / teórico ${fmt(teo)} kg`:'sin datos en el período',
+    deltaTxt(desv,desvP,' pts',false), null, null,
+    desv==null?null:desv<=0?css('--good-text'):desv<=2?css('--warn-text'):css('--crit'));
+}
+
+/* ================= piezas ================= */
+function yAxis(g,x0,x1,ymax,h,top,unit){
+  for(let i=0;i<=4;i++){
+    const yv=ymax*i/4, y=top+h-h*i/4;
+    const ln=S('line'); ln.setAttribute('x1',x0); ln.setAttribute('x2',x1); ln.setAttribute('y1',y); ln.setAttribute('y2',y);
+    ln.setAttribute('stroke', i===0?css('--baseline'):css('--grid')); g.appendChild(ln);
+    const t=S('text'); t.setAttribute('x',x0-6); t.setAttribute('y',y+3.5); t.setAttribute('text-anchor','end');
+    t.setAttribute('class','axis-t'); t.setAttribute('style','font-variant-numeric:tabular-nums');
+    t.textContent=(yv>=1e6?nf1.format(yv/1e6)+' M':yv>=1000?nf.format(yv/1000)+' k':nf.format(yv))+(unit||'');
+    g.appendChild(t);
+  }
+}
+function xLabels(g,items,X,H,iw){
+  const every=Math.max(1,Math.ceil(items.length/Math.max(1,Math.floor(iw/60))));
+  items.forEach((it,i)=>{ if(i%every) return;
+    const t=S('text'); t.setAttribute('x',X(i)); t.setAttribute('y',H-8);
+    t.setAttribute('text-anchor','middle'); t.setAttribute('class','axis-t'); t.textContent=it; g.appendChild(t);
+  });
+}
+function makeCard(parent,opts){
+  const c=el('div','card'+(opts.full?' full':''));
+  const key='pm-tbl-'+opts.title;
+  const showT=makeCard.state[key]||false;
+  c.innerHTML=`<div class="chead"><div><h2>${opts.title}</h2><div class="csub">${opts.sub||''}</div></div><div class="tools"></div></div>`;
+  const tools=c.querySelector('.tools');
+  (opts.tools||[]).forEach(t=>tools.appendChild(t));
+  if(opts.table){
+    const b=el('button','tbtn',showT?'Gráfico':'Tabla'); b.setAttribute('aria-pressed',showT);
+    b.onclick=()=>{ makeCard.state[key]=!showT; renderAll(); };
+    tools.appendChild(b);
+  }
+  if(opts.legend&&opts.legend.length){
+    const lg=el('div','legend');
+    opts.legend.forEach(it=>lg.appendChild(el('span','it',`<span class="sw ${it.line?'line':''}" style="background:${it.col}"></span>${it.name}`)));
+    c.appendChild(lg);
+  }
+  const plot=el('div','plot'); c.appendChild(plot);
+  parent.appendChild(c);
+  if(showT && opts.table) renderTable(plot,opts.table);
+  else if(opts.chart) opts.chart(plot);
+  else if(opts.table) renderTable(plot,opts.table);
+  return c;
+}
+makeCard.state={};
+function renderTable(plot,t){
+  const wrap=el('div','tblwrap');
+  const state=t.sortState||(t.sortState={col:t.defaultSort??-1,dir:-1});
+  const draw=()=>{
+    let rows=[...t.rows];
+    if(state.col>=0) rows.sort((a,b)=>{
+      const x=a._sort?a._sort[state.col]:a[state.col], y=b._sort?b._sort[state.col]:b[state.col];
+      return (typeof x==='number'&&typeof y==='number'? x-y : String(x).localeCompare(String(y)))*state.dir;
+    });
+    wrap.innerHTML=`<table class="dt"><thead><tr>${t.heads.map((h,i)=>
+      `<th class="${i?'num':''}" data-i="${i}">${h}${state.col===i?` <span class="arr">${state.dir<0?'▼':'▲'}</span>`:''}</th>`).join('')}</tr></thead>`+
+      `<tbody>${rows.map(r=>`<tr>${r.map((v,i)=>`<td class="${i?'num':''}">${v}</td>`).join('')}</tr>`).join('')}`+
+      (t.totRow?`<tr class="tot">${t.totRow.map((v,i)=>`<td class="${i?'num':''}">${v}</td>`).join('')}</tr>`:'')+
+      `</tbody></table>`;
+    wrap.querySelectorAll('th').forEach(th=>th.onclick=()=>{
+      const i=+th.dataset.i;
+      if(state.col===i) state.dir*=-1; else { state.col=i; state.dir=-1; }
+      draw();
+    });
+  };
+  draw(); plot.appendChild(wrap);
+}
+/* semáforo tableroVentas: verde ≥100, dorado 90–99, rojo <90 */
+const stBadge = c => c==null?'—':
+  c>=100?`<span class="st ok"><span class="dot"></span>${nf1.format(c)}%</span>`:
+  c>=90?`<span class="st med"><span class="dot"></span>${nf1.format(c)}%</span>`:
+  `<span class="st bad"><span class="dot"></span>${nf1.format(c)}%</span>`;
+
+function hBars(plot,rows,opts){
+  const W=plotW(plot), rh=26, top=4, left=Math.min(150,Math.max(90,W*.2)), right=56;
+  const H=top+rows.length*rh+6, iw=W-left-right;
+  const xmax=opts.xmax || niceMax(Math.max(1,...rows.map(r=>Math.max(r.val,r.mark||0))));
+  const svg=svgEl(W,H), g=S('g'); svg.appendChild(g);
+  rows.forEach((r,i)=>{
+    const y=top+i*rh;
+    const t=S('text'); t.setAttribute('x',left-8); t.setAttribute('y',y+rh/2+3.5); t.setAttribute('text-anchor','end');
+    t.setAttribute('class','axis-t'); t.textContent=r.label.length>20?r.label.slice(0,19)+'…':r.label; g.appendChild(t);
+    if(opts.track){ const bg=S('rect'); bg.setAttribute('x',left); bg.setAttribute('y',y+5); bg.setAttribute('width',iw);
+      bg.setAttribute('height',rh-10); bg.setAttribute('fill',css('--grid')); bg.setAttribute('rx',4); g.appendChild(bg); }
+    const bw=iw*Math.min(r.val,xmax)/xmax;
+    const rc=S('rect'); rc.setAttribute('x',left); rc.setAttribute('y',y+5);
+    rc.setAttribute('width',Math.max(bw,r.val?1.5:0)); rc.setAttribute('height',rh-10);
+    rc.setAttribute('fill',css(r.col||opts.valCol)); rc.setAttribute('rx',4); g.appendChild(rc);
+    if(r.mark!=null){
+      const px=left+iw*Math.min(r.mark,xmax)/xmax;
+      const pl=S('line'); pl.setAttribute('x1',px); pl.setAttribute('x2',px); pl.setAttribute('y1',y+2); pl.setAttribute('y2',y+rh-2);
+      pl.setAttribute('stroke',css(opts.markCol||'--ink-2')); pl.setAttribute('stroke-width',2.5); g.appendChild(pl);
+    }
+    const v=S('text'); v.setAttribute('x',left+(opts.track?iw:Math.max(bw,0))+6); v.setAttribute('y',y+rh/2+3.5);
+    v.setAttribute('class','dlab'); v.textContent=(opts.labFmt||fmt)(r.val); g.appendChild(v);
+    const hz=S('rect'); hz.setAttribute('x',0); hz.setAttribute('y',y); hz.setAttribute('width',W); hz.setAttribute('height',rh); hz.setAttribute('fill','transparent');
+    if(r.tip){ hz.addEventListener('mousemove',r.tip); hz.addEventListener('mouseleave',hideTip); }
+    g.appendChild(hz);
+  });
+  plot.appendChild(svg);
+}
+
+/* plan vs real con overlays de análisis (promedio, media móvil) */
+const OV = {prom:false, mm3:false};
+function chartPlanReal(plot,buckets,planM,realM,granularity){
+  const rows=buckets.map(w=>({w, plan:planM.get(w)||0, real:realM.get(w)||0}));
+  const W=plotW(plot), H=290, top=14, bot=26, left=50, right=10;
+  const ih=H-top-bot, iw=W-left-right;
+  const ymax=niceMax(Math.max(1,...rows.map(r=>Math.max(r.plan,r.real))));
+  const svg=svgEl(W,H), g=S('g'); svg.appendChild(g);
+  yAxis(g,left,W-right,ymax,ih,top);
+  const n=rows.length, slot=iw/Math.max(n,1);
+  const X=i=>left+slot*(i+.5), Y=v=>top+ih-ih*v/ymax;
+  const lblFn = granularity==='month'? mLbl : dShort;
+  xLabels(g,rows.map(r=>lblFn(r.w)),X,H,iw);
+  const asLines=n>34;
+  const hdr=r=>granularity==='day'?dLong(r.w):granularity==='month'?mLbl(r.w):'Semana del '+dLong(r.w);
+  const tipHtml=r=>`<div class="t-h">${hdr(r)}</div>`+
+    tipRow(css('--s1'),'Plan',fmt(r.plan))+tipRow(css('--s2'),'Real',fmt(r.real))+
+    (r.plan?tipRow('transparent','Cumpl.',nf1.format(r.real/r.plan*100)+'%'):'');
+  if(asLines){
+    [['plan','--s1'],['real','--s2']].forEach(([k,col])=>{
+      const pl=S('polyline'); pl.setAttribute('points',rows.map((r,i)=>`${X(i)},${Y(r[k])}`).join(' '));
+      pl.setAttribute('fill','none'); pl.setAttribute('stroke',css(col)); pl.setAttribute('stroke-width',2);
+      pl.setAttribute('stroke-linejoin','round'); g.appendChild(pl);
+    });
+  } else {
+    const bw=Math.min(20,slot*.34);
+    rows.forEach((r,i)=>{
+      [['plan','--s1',-bw-1],['real','--s2',1]].forEach(([k,col,dx])=>{
+        const v=r[k], bh=ih*v/ymax;
+        const rc=S('rect'); rc.setAttribute('x',X(i)+dx); rc.setAttribute('width',bw);
+        rc.setAttribute('y',top+ih-bh); rc.setAttribute('height',Math.max(bh,v?1.5:0));
+        rc.setAttribute('fill',css(col)); rc.setAttribute('rx',Math.min(4,bw/2)); g.appendChild(rc);
+      });
+    });
+  }
+  /* overlays sobre el real */
+  const reals=rows.map(r=>r.real);
+  if(OV.prom && reals.some(v=>v)){
+    const m=sum(reals)/reals.length;
+    const ln=S('line'); ln.setAttribute('x1',left); ln.setAttribute('x2',W-right); ln.setAttribute('y1',Y(m)); ln.setAttribute('y2',Y(m));
+    ln.setAttribute('stroke',css('--gold')); ln.setAttribute('stroke-width',2); ln.setAttribute('stroke-dasharray','6 4'); g.appendChild(ln);
+    const t=S('text'); t.setAttribute('x',W-right); t.setAttribute('y',Y(m)-5); t.setAttribute('text-anchor','end');
+    t.setAttribute('class','axis-t'); t.setAttribute('fill',css('--gold')); t.textContent='prom. '+fmtK(m); g.appendChild(t);
+  }
+  if(OV.mm3 && n>=3){
+    const pts=[];
+    for(let i=2;i<n;i++) pts.push(`${X(i)},${Y((reals[i]+reals[i-1]+reals[i-2])/3)}`);
+    const pl=S('polyline'); pl.setAttribute('points',pts.join(' '));
+    pl.setAttribute('fill','none'); pl.setAttribute('stroke',css('--ink-2')); pl.setAttribute('stroke-width',2);
+    pl.setAttribute('stroke-dasharray','2 3'); g.appendChild(pl);
+  }
+  /* hover */
+  const vline=S('line'); vline.setAttribute('y1',top); vline.setAttribute('y2',top+ih);
+  vline.setAttribute('stroke',css('--baseline')); vline.setAttribute('stroke-dasharray','3 3'); vline.setAttribute('visibility','hidden'); g.appendChild(vline);
+  const hv=S('rect'); hv.setAttribute('x',left); hv.setAttribute('y',top); hv.setAttribute('width',iw); hv.setAttribute('height',ih); hv.setAttribute('fill','transparent'); g.appendChild(hv);
+  hv.addEventListener('mousemove',ev=>{
+    const bb=svg.getBoundingClientRect(); const mx=(ev.clientX-bb.left)*W/bb.width;
+    const i=Math.min(n-1,Math.max(0,Math.round((mx-left)/slot-.5)));
+    vline.setAttribute('x1',X(i)); vline.setAttribute('x2',X(i)); vline.setAttribute('visibility','visible');
+    showTip(tipHtml(rows[i]),ev);
+  });
+  hv.addEventListener('mouseleave',()=>{vline.setAttribute('visibility','hidden');hideTip();});
+  plot.appendChild(svg);
+}
+function ovTools(){
+  return [['prom','Promedio'],['mm3','Media móvil 3']].map(([k,lbl])=>{
+    const b=el('button','tbtn',lbl); b.setAttribute('aria-pressed',OV[k]);
+    b.onclick=()=>{ OV[k]=!OV[k]; renderAll(); };
+    return b;
+  });
+}
+/* agrupación día/semana/mes */
+let GRAN = 'week';
+function granTools(){
+  return [['day','Día'],['week','Semana'],['month','Mes']].map(([k,lbl])=>{
+    const b=el('button','tbtn',lbl); b.setAttribute('aria-pressed',GRAN===k);
+    b.onclick=()=>{ GRAN=k; renderAll(); };
+    return b;
+  });
+}
+function buckets(R){
+  if(GRAN==='day'){ const out=[]; for(let d=R[0]; d<=R[1]; d=addDays(d,1)) out.push(d); return out; }
+  if(GRAN==='month'){
+    const out=[]; let m=R[0].slice(0,7);
+    while(m<=R[1].slice(0,7)){ out.push(m+'-01'); const [y,mo]=m.split('-').map(Number); m=(mo===12?`${y+1}-01`:`${y}-${String(mo+1).padStart(2,'0')}`); }
+    return out;
+  }
+  return weeksIn(R);
+}
+function bucketOf(f){ return GRAN==='day'? f : GRAN==='month'? f.slice(0,7)+'-01' : weekStart(f); }
+function byBucket(rows,vi){ const m=new Map(); rows.forEach(r=>{ const b=bucketOf(r[0]); m.set(b,(m.get(b)||0)+r[vi]); }); return m; }
+
+/* ================= TABS ================= */
+function tabResumen(main){
+  const R=rango(), weeks=weeksIn(R);
+  const planW=byWeek(fPlan(R),2), realW=byWeek(fReal(R),2);
+  const g=el('div','grid g2'); main.appendChild(g);
+
+  makeCard(g,{title:'Plan vs. real por semana', sub:'Marcas seleccionadas, total semanal', full:true,
+    legend:[{name:'Plan',col:css('--s1')},{name:'Real',col:css('--s2')},
+      ...(OV.prom?[{name:'Promedio real',col:css('--gold'),line:true}]:[]),
+      ...(OV.mm3?[{name:'Media móvil (3)',col:css('--ink-2'),line:true}]:[])],
+    tools:ovTools(),
+    table:{heads:['Semana del','Plan','Real','Cumplimiento'],
+      rows:weeks.map(w=>{const p=planW.get(w)||0, r=realW.get(w)||0;
+        return Object.assign([dLong(w),fmt(p),fmt(r),stBadge(p?r/p*100:null)],{_sort:[w,p,r,p?r/p*100:-1]});})},
+    chart:plot=>{ const gSave=GRAN; GRAN='week'; chartPlanReal(plot,weeksIn(R),byBucket(fPlan(R),2),byBucket(fReal(R),2)); GRAN=gSave; }});
+
+  makeCard(g,{title:'Cumplimiento semanal', sub:'Real / plan por semana; referencia en 100 %',
+    chart:plot=>{
+      const rows=weeks.map(w=>({w, c:(planW.get(w)?((realW.get(w)||0)/planW.get(w)*100):null)})).filter(r=>r.c!=null);
+      if(!rows.length){ plot.appendChild(el('div','empty','Sin semanas con plan en el período.')); return; }
+      const W=plotW(plot),H=240,top=14,bot=26,left=44,right=12, ih=H-top-bot, iw=W-left-right;
+      const ymax=niceMax(Math.max(120,...rows.map(r=>r.c)));
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,ymax,ih,top,'');
+      const n=rows.length, slot=iw/n, X=i=>left+slot*(i+.5), Y=v=>top+ih-ih*v/ymax;
+      xLabels(g2,rows.map(r=>dShort(r.w)),X,H,iw);
+      const ref=S('line'); ref.setAttribute('x1',left); ref.setAttribute('x2',W-right);
+      ref.setAttribute('y1',Y(100)); ref.setAttribute('y2',Y(100));
+      ref.setAttribute('stroke',css('--gold')); ref.setAttribute('stroke-dasharray','4 3'); g2.appendChild(ref);
+      const rt=S('text'); rt.setAttribute('x',W-right); rt.setAttribute('y',Y(100)-4); rt.setAttribute('text-anchor','end');
+      rt.setAttribute('class','axis-t'); rt.textContent='100 %'; g2.appendChild(rt);
+      const pl=S('polyline'); pl.setAttribute('points',rows.map((r,i)=>`${X(i)},${Y(r.c)}`).join(' '));
+      pl.setAttribute('fill','none'); pl.setAttribute('stroke',css('--s2')); pl.setAttribute('stroke-width',2); pl.setAttribute('stroke-linejoin','round'); g2.appendChild(pl);
+      rows.forEach((r,i)=>{
+        const c=S('circle'); c.setAttribute('cx',X(i)); c.setAttribute('cy',Y(r.c)); c.setAttribute('r',3.2);
+        c.setAttribute('fill',css('--s2')); c.setAttribute('stroke',css('--surface')); c.setAttribute('stroke-width',1.5); g2.appendChild(c);
+        const hz=S('rect'); hz.setAttribute('x',X(i)-slot/2); hz.setAttribute('y',top); hz.setAttribute('width',slot); hz.setAttribute('height',ih); hz.setAttribute('fill','transparent');
+        hz.addEventListener('mousemove',ev=>showTip(`<div class="t-h">Semana del ${dLong(r.w)}</div>`+tipRow(css('--s2'),'Cumplimiento',nf1.format(r.c)+'%'),ev));
+        hz.addEventListener('mouseleave',hideTip); g2.appendChild(hz);
+      });
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Top marcas del período', sub:'Real acumulado; la línea marca el plan',
+    legend:[{name:'Real',col:css('--s2')},{name:'Plan',col:css('--s1'),line:true}],
+    chart:plot=>{
+      const agg=new Map();
+      fReal(R).forEach(r=>{const a=agg.get(r[1])||{real:0,plan:0}; a.real+=r[2]; agg.set(r[1],a);});
+      fPlan(R).forEach(r=>{const a=agg.get(r[1])||{real:0,plan:0}; a.plan+=r[2]; agg.set(r[1],a);});
+      const rows=[...agg.entries()].map(([id,a])=>({name:DATA.marcas[id]||('Marca '+id),...a}))
+        .sort((x,y)=>y.real-x.real).slice(0,8);
+      if(!rows.length){ plot.appendChild(el('div','empty','Sin producción en el período.')); return; }
+      hBars(plot,rows.map(r=>({label:r.name, val:r.real, mark:r.plan||null,
+        tip:ev=>showTip(`<div class="t-h">${r.name}</div>`+tipRow(css('--s2'),'Real',fmt(r.real))+tipRow(css('--s1'),'Plan',fmt(r.plan))+
+          (r.plan?tipRow('transparent','Cumpl.',nf1.format(r.real/r.plan*100)+'%'):''),ev)})),
+        {valCol:'--s2', markCol:'--s1', labFmt:fmtK});
+    }});
+
+  const prodT=(()=>{const m=[0,0,0]; fProd(R).forEach(r=>m[r[2]]+=r[3]); return m;})();
+  makeCard(g,{title:'Participación por turno', sub:'Producción de la minuta en el período',
+    legend:DATA.turnos.map((t,i)=>({name:'Turno '+t,col:css(['--s1','--s2','--s3'][i])})),
+    chart:plot=>{
+      const tot=sum(prodT);
+      if(!tot){ plot.appendChild(el('div','empty','Sin minutas en el período (llegan hasta '+dLong(MAX_MINUTA)+').')); return; }
+      const W=plotW(plot),H=64; const svg=svgEl(W,H); let x=0;
+      prodT.forEach((v,i)=>{
+        if(!v) return; const w=(W-4)*v/tot;
+        const rc=S('rect'); rc.setAttribute('x',x); rc.setAttribute('y',10); rc.setAttribute('width',Math.max(w-2,1)); rc.setAttribute('height',26);
+        rc.setAttribute('rx',4); rc.setAttribute('fill',css(['--s1','--s2','--s3'][i]));
+        rc.addEventListener('mousemove',ev=>showTip(`<div class="t-h">Turno ${DATA.turnos[i]}</div>`+
+          tipRow(css(['--s1','--s2','--s3'][i]),'Producción',fmtK(v))+tipRow('transparent','Particip.',nf1.format(v/tot*100)+'%'),ev));
+        rc.addEventListener('mouseleave',hideTip);
+        svg.appendChild(rc);
+        if(w>52){ const t=S('text'); t.setAttribute('x',x+w/2); t.setAttribute('y',54); t.setAttribute('text-anchor','middle');
+          t.setAttribute('class','dlab'); t.textContent=`${DATA.turnos[i]} · ${nf1.format(v/tot*100)}%`; svg.appendChild(t); }
+        x+=w;
+      });
+      plot.appendChild(svg);
+    }});
+}
+
+function tabPlanReal(main){
+  const R=rango();
+  const g=el('div','grid'); main.appendChild(g);
+  const gl={day:'diario',week:'semanal',month:'mensual'}[GRAN];
+  makeCard(g,{title:'Plan vs. real', sub:`Total ${gl} de marcas seleccionadas`, full:true,
+    legend:[{name:'Plan',col:css('--s1')},{name:'Real',col:css('--s2')},
+      ...(OV.prom?[{name:'Promedio real',col:css('--gold'),line:true}]:[]),
+      ...(OV.mm3?[{name:'Media móvil (3)',col:css('--ink-2'),line:true}]:[])],
+    tools:[...granTools(),...ovTools()],
+    table:(()=>{
+      const bs=buckets(R), pm=byBucket(fPlan(R),2), rm=byBucket(fReal(R),2);
+      const lbl=GRAN==='month'?mLbl:dLong;
+      return {heads:[GRAN==='day'?'Fecha':GRAN==='month'?'Mes':'Semana del','Plan','Real','Dif.','Cumplimiento'],
+        rows:bs.map(w=>{const p=pm.get(w)||0, r=rm.get(w)||0;
+          return Object.assign([lbl(w),fmt(p),fmt(r),fmt(r-p),stBadge(p?r/p*100:null)],{_sort:[w,p,r,r-p,p?r/p*100:-1]});}),
+        totRow:(()=>{const p=sum(fPlan(R).map(r=>r[2])), r=sum(fReal(R).map(x=>x[2]));
+          return ['Total',fmt(p),fmt(r),fmt(r-p),stBadge(p?r/p*100:null)];})()};
+    })(),
+    chart:plot=>chartPlanReal(plot,buckets(R),byBucket(fPlan(R),2),byBucket(fReal(R),2),GRAN)});
+
+  makeCard(g,{title:'Cumplimiento por marca y semana', sub:'Real/plan por celda · gris = semana sin plan para esa marca', full:true,
+    chart:plot=>{
+      const weeks=weeksIn(R);
+      const pm=new Map(), rm=new Map();
+      fPlan(R).forEach(r=>{const k=r[1]+'|'+weekStart(r[0]); pm.set(k,(pm.get(k)||0)+r[2]);});
+      fReal(R).forEach(r=>{const k=r[1]+'|'+weekStart(r[0]); rm.set(k,(rm.get(k)||0)+r[2]);});
+      const marcas=[...F.marcas].filter(id=>weeks.some(w=>pm.get(id+'|'+w)||rm.get(id+'|'+w)));
+      if(!marcas.length||weeks.length<2){ plot.appendChild(el('div','empty','Sin datos suficientes en el período.')); return; }
+      const tot=id=>sum(weeks.map(w=>rm.get(id+'|'+w)||0));
+      const ms=marcas.sort((a,b)=>tot(b)-tot(a)).slice(0,14);
+      const hm=el('div','hm');
+      hm.style.gridTemplateColumns=`minmax(88px,130px) repeat(${weeks.length},1fr)`;
+      hm.appendChild(el('div','collab',''));
+      const every=Math.max(1,Math.ceil(weeks.length/16));
+      weeks.forEach((w,i)=>hm.appendChild(el('div','collab',i%every?'':dShort(w))));
+      const ramp=['--seq1','--seq2','--seq3','--seq4','--seq5','--seq6'];
+      ms.forEach(id=>{
+        hm.appendChild(el('div','rowlab',DATA.marcas[id]||('Marca '+id)));
+        weeks.forEach(w=>{
+          const p=pm.get(id+'|'+w)||0, r=rm.get(id+'|'+w)||0;
+          const cell=el('div','cell');
+          if(!p&&!r){ cell.style.background='transparent'; cell.style.border='1px solid '+css('--grid'); }
+          else if(!p){ cell.style.background=css('--div-neu'); cell.textContent='·'; cell.style.color=css('--muted'); }
+          else {
+            const c=r/p*100;
+            const step=c<40?0:c<60?1:c<80?2:c<95?3:c<110?4:5;
+            cell.style.background=css(ramp[step]);
+            if(step>=4) cell.style.color='#fff';
+            if(weeks.length<=16) cell.textContent=Math.round(c)+'%';
+          }
+          cell.onmousemove=ev=>showTip(`<div class="t-h">${DATA.marcas[id]||id} · sem. ${dShort(w)}</div>`+
+            tipRow(css('--s1'),'Plan',fmt(p))+tipRow(css('--s2'),'Real',fmt(r))+
+            (p?tipRow('transparent','Cumpl.',nf1.format(r/p*100)+'%'):''),ev);
+          cell.onmouseleave=hideTip;
+          hm.appendChild(cell);
+        });
+      });
+      plot.appendChild(hm);
+      plot.appendChild(el('div','hmleg','<span>0%</span>'+ramp.map(c=>`<span class="b" style="background:${css(c)}"></span>`).join('')+'<span>≥110%</span><span style="margin-left:10px">· = real sin plan</span>'));
+    }});
+}
+
+function tabMarcas(main){
+  const R=rango(), weeks=weeksIn(R);
+  const g=el('div','grid g2'); main.appendChild(g);
+  const agg=new Map();
+  fReal(R).forEach(r=>{const a=agg.get(r[1])||{real:0,plan:0,dias:new Set()}; a.real+=r[2]; a.dias.add(r[0]); agg.set(r[1],a);});
+  fPlan(R).forEach(r=>{const a=agg.get(r[1])||{real:0,plan:0,dias:new Set()}; a.plan+=r[2]; agg.set(r[1],a);});
+  const rows=[...agg.entries()].map(([id,a])=>({id,name:DATA.marcas[id]||('Marca '+id),...a})).sort((x,y)=>y.real-x.real);
+  const totReal=sum(rows.map(r=>r.real));
+
+  makeCard(g,{title:'Ranking de marcas', sub:'Real acumulado; la línea marca el plan',
+    legend:[{name:'Real',col:css('--s2')},{name:'Plan',col:css('--s1'),line:true}],
+    chart:plot=>{
+      if(!rows.length){ plot.appendChild(el('div','empty','Sin datos en el período.')); return; }
+      hBars(plot,rows.map(r=>({label:r.name,val:r.real,mark:r.plan||null,
+        tip:ev=>showTip(`<div class="t-h">${r.name}</div>`+tipRow(css('--s2'),'Real',fmt(r.real))+tipRow(css('--s1'),'Plan',fmt(r.plan))+
+          (r.plan?tipRow('transparent','Cumpl.',nf1.format(r.real/r.plan*100)+'%'):'')+
+          tipRow('transparent','% del total',nf1.format(totReal?r.real/totReal*100:0)+'%'),ev)})),
+        {valCol:'--s2',markCol:'--s1',labFmt:fmtK});
+    }});
+
+  makeCard(g,{title:'Evolución semanal — top 5', sub:'Real por semana de las 5 marcas con más producción',
+    legend:rows.slice(0,5).map((r,i)=>({name:r.name,col:css(['--s1','--s2','--s3','--s4','--s5'][i]),line:true})),
+    chart:plot=>{
+      const top=rows.slice(0,5);
+      if(!top.length||weeks.length<2){ plot.appendChild(el('div','empty','Sin datos suficientes.')); return; }
+      const series=top.map(r=>{
+        const m=new Map(); DATA.real.forEach(x=>{ if(x[1]===r.id&&inR(x[0],R)){ const w=weekStart(x[0]); m.set(w,(m.get(w)||0)+x[2]); }});
+        return weeks.map(w=>m.get(w)||0);
+      });
+      const W=plotW(plot),H=260,top_=14,bot=26,left=48,right=14, ih=H-top_-bot, iw=W-left-right;
+      const ymax=niceMax(Math.max(1,...series.flat()));
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,ymax,ih,top_);
+      const n=weeks.length, slot=iw/n, X=i=>left+slot*(i+.5), Y=v=>top_+ih-ih*v/ymax;
+      xLabels(g2,weeks.map(dShort),X,H,iw);
+      const cols=['--s1','--s2','--s3','--s4','--s5'];
+      series.forEach((vals,si)=>{
+        const pl=S('polyline'); pl.setAttribute('points',vals.map((v,i)=>`${X(i)},${Y(v)}`).join(' '));
+        pl.setAttribute('fill','none'); pl.setAttribute('stroke',css(cols[si])); pl.setAttribute('stroke-width',2); pl.setAttribute('stroke-linejoin','round');
+        g2.appendChild(pl);
+      });
+      const vline=S('line'); vline.setAttribute('y1',top_); vline.setAttribute('y2',top_+ih);
+      vline.setAttribute('stroke',css('--baseline')); vline.setAttribute('stroke-dasharray','3 3'); vline.setAttribute('visibility','hidden'); g2.appendChild(vline);
+      const hv=S('rect'); hv.setAttribute('x',left); hv.setAttribute('y',top_); hv.setAttribute('width',iw); hv.setAttribute('height',ih); hv.setAttribute('fill','transparent'); g2.appendChild(hv);
+      hv.addEventListener('mousemove',ev=>{
+        const bb=svg.getBoundingClientRect(); const mx=(ev.clientX-bb.left)*W/bb.width;
+        const i=Math.min(n-1,Math.max(0,Math.round((mx-left)/slot-.5)));
+        vline.setAttribute('x1',X(i)); vline.setAttribute('x2',X(i)); vline.setAttribute('visibility','visible');
+        showTip(`<div class="t-h">Semana del ${dLong(weeks[i])}</div>`+
+          top.map((r,si)=>tipRow(css(cols[si]),r.name,fmt(series[si][i]))).join(''),ev);
+      });
+      hv.addEventListener('mouseleave',()=>{vline.setAttribute('visibility','hidden');hideTip();});
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Detalle por marca', sub:'Clic en un encabezado ordena la tabla', full:true,
+    table:{heads:['Marca','Plan','Real','Dif.','Cumplimiento','% del total','Días c/ prod.'], defaultSort:2,
+      rows:rows.map(r=>Object.assign(
+        [r.name,fmt(r.plan),fmt(r.real),fmt(r.real-r.plan),stBadge(r.plan?r.real/r.plan*100:null),nf1.format(totReal?r.real/totReal*100:0)+'%',r.dias.size],
+        {_sort:[r.name,r.plan,r.real,r.real-r.plan,r.plan?r.real/r.plan*100:-1,totReal?r.real/totReal*100:0,r.dias.size]})),
+      totRow:(()=>{const p=sum(rows.map(r=>r.plan)), re=sum(rows.map(r=>r.real));
+        return ['Total',fmt(p),fmt(re),fmt(re-p),stBadge(p?re/p*100:null),'100%',''];})()}});
+}
+
+function tabMaquinas(main){
+  const R=rango(), weeks=weeksIn(R);
+  const g=el('div','grid g2'); main.appendChild(g);
+  const rend=fRend(R);
+  const agg=new Map();
+  rend.forEach(r=>{const a=agg.get(r[1])||{s:0,n:0,obj:null,vel:null}; a.s+=r[3]; a.n++; if(r[4]!=null)a.obj=r[4]; if(r[5]!=null)a.vel=r[5]; agg.set(r[1],a);});
+  const rows=[...agg.entries()].map(([id,a])=>({id,name:DATA.maquinas[id]||('Máq. '+id),tipo:DATA.tipoMaquina[id]||'Otras',
+    efic:a.s/a.n,obj:a.obj,vel:a.vel,n:a.n})).sort((x,y)=>y.efic-x.efic);
+
+  makeCard(g,{title:'Eficiencia por máquina', sub:'Promedio del período; la línea marca el objetivo', full:true,
+    legend:[{name:'Eficiencia',col:css('--s1')},{name:'Objetivo',col:css('--ink-2'),line:true}],
+    chart:plot=>{
+      if(!rows.length){ plot.appendChild(el('div','empty','Sin minutas en el período (llegan hasta '+dLong(MAX_MINUTA)+').')); return; }
+      hBars(plot,rows.map(r=>({label:r.name,val:r.efic,mark:r.obj,
+        tip:ev=>showTip(`<div class="t-h">${r.name} · ${r.tipo}</div>`+
+          tipRow(css('--s1'),'Eficiencia',nf1.format(r.efic)+'%')+
+          (r.obj!=null?tipRow(css('--ink-2'),'Objetivo',nf1.format(r.obj)+'%'):'')+
+          (r.vel!=null?tipRow('transparent','Vel. deseada',fmt(r.vel)):'')+
+          tipRow('transparent','Registros',r.n),ev)})),
+        {valCol:'--s1',markCol:'--ink-2',track:true,xmax:100,labFmt:v=>nf1.format(v)+'%'});
+    }});
+
+  makeCard(g,{title:'Evolución semanal por tipo', sub:'Eficiencia promedio de cada grupo de máquinas',
+    legend:['Cigarrilleras','Empaquetadoras','Filtreras'].map((t,i)=>({name:t,col:css(['--s1','--s2','--s3'][i]),line:true})),
+    chart:plot=>{
+      const tipos=['Cigarrilleras','Empaquetadoras','Filtreras'];
+      const series=tipos.map(tp=>{
+        const m=new Map(), c=new Map();
+        rend.forEach(r=>{ if((DATA.tipoMaquina[r[1]]||'')!==tp) return;
+          const w=weekStart(r[0]); m.set(w,(m.get(w)||0)+r[3]); c.set(w,(c.get(w)||0)+1); });
+        return weeks.map(w=>c.get(w)?m.get(w)/c.get(w):null);
+      });
+      if(!series.some(s=>s.some(v=>v!=null))||weeks.length<2){ plot.appendChild(el('div','empty','Sin datos suficientes.')); return; }
+      const W=plotW(plot),H=250,top_=14,bot=26,left=42,right=12, ih=H-top_-bot, iw=W-left-right;
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,100,ih,top_,'');
+      const n=weeks.length, slot=iw/n, X=i=>left+slot*(i+.5), Y=v=>top_+ih-ih*v/100;
+      xLabels(g2,weeks.map(dShort),X,H,iw);
+      const cols=['--s1','--s2','--s3'];
+      series.forEach((vals,si)=>{
+        let seg=[];
+        const flush=()=>{ if(seg.length>1){ const pl=S('polyline'); pl.setAttribute('points',seg.join(' '));
+          pl.setAttribute('fill','none'); pl.setAttribute('stroke',css(cols[si])); pl.setAttribute('stroke-width',2);
+          pl.setAttribute('stroke-linejoin','round'); g2.appendChild(pl);} seg=[]; };
+        vals.forEach((v,i)=>{ if(v==null){flush(); return;} seg.push(`${X(i)},${Y(Math.min(v,100))}`); });
+        flush();
+      });
+      const vline=S('line'); vline.setAttribute('y1',top_); vline.setAttribute('y2',top_+ih);
+      vline.setAttribute('stroke',css('--baseline')); vline.setAttribute('stroke-dasharray','3 3'); vline.setAttribute('visibility','hidden'); g2.appendChild(vline);
+      const hv=S('rect'); hv.setAttribute('x',left); hv.setAttribute('y',top_); hv.setAttribute('width',iw); hv.setAttribute('height',ih); hv.setAttribute('fill','transparent'); g2.appendChild(hv);
+      hv.addEventListener('mousemove',ev=>{
+        const bb=svg.getBoundingClientRect(); const mx=(ev.clientX-bb.left)*W/bb.width;
+        const i=Math.min(n-1,Math.max(0,Math.round((mx-left)/slot-.5)));
+        vline.setAttribute('x1',X(i)); vline.setAttribute('x2',X(i)); vline.setAttribute('visibility','visible');
+        showTip(`<div class="t-h">Semana del ${dLong(weeks[i])}</div>`+
+          tipos.map((t,si)=>series[si][i]!=null?tipRow(css(cols[si]),t,nf1.format(series[si][i])+'%'):'').join(''),ev);
+      });
+      hv.addEventListener('mouseleave',()=>{vline.setAttribute('visibility','hidden');hideTip();});
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Detalle por máquina', sub:'Promedios del período seleccionado',
+    table:{heads:['Máquina','Tipo','Eficiencia','Objetivo','Brecha','Vel. deseada','Registros'], defaultSort:2,
+      rows:rows.map(r=>Object.assign(
+        [r.name,r.tipo,nf1.format(r.efic)+'%',r.obj!=null?nf1.format(r.obj)+'%':'—',
+         r.obj!=null?(r.efic>=r.obj?`<span class="st ok"><span class="dot"></span>+${nf1.format(r.efic-r.obj)}</span>`:`<span class="st bad"><span class="dot"></span>${nf1.format(r.efic-r.obj)}</span>`):'—',
+         r.vel!=null?fmt(r.vel):'—', r.n],
+        {_sort:[r.name,r.tipo,r.efic,r.obj??-1,r.obj!=null?r.efic-r.obj:-999,r.vel??-1,r.n]}))}});
+}
+
+function tabTurnos(main){
+  const R=rango(), P=rangoPrev(), weeks=weeksIn(R);
+  const cols=['--s1','--s2','--s3'];
+  const wk=new Map();
+  fProd(R).forEach(r=>{const w=weekStart(r[0]); const a=wk.get(w)||[0,0,0]; a[r[2]]+=r[3]; wk.set(w,a);});
+  const rows=weeks.map(w=>({w,t:wk.get(w)||[0,0,0]}));
+  const legend=DATA.turnos.map((t,i)=>({name:'Turno '+t,col:css(cols[i])}));
+
+  /* tiles por turno */
+  const totT=[0,0,0], totP=[0,0,0], efS=[0,0,0], efN=[0,0,0], diasT=[new Set(),new Set(),new Set()];
+  fProd(R).forEach(r=>{ totT[r[2]]+=r[3]; diasT[r[2]].add(r[0]); });
+  DATA.prod.forEach(r=>{ if(inR(r[0],P)&&F.maqs.has(r[1])&&F.turnos.has(r[2])) totP[r[2]]+=r[3]; });
+  fRend(R).forEach(r=>{ efS[r[2]]+=r[3]; efN[r[2]]++; });
+  const totAll=sum(totT);
+  const tiles=el('div','kpis'); tiles.style.marginTop='14px'; main.appendChild(tiles);
+  DATA.turnos.forEach((t,i)=>{
+    if(!F.turnos.has(i)) return;
+    const d=el('div','kpi');
+    d.style.borderTop='3px solid '+css(cols[i]);
+    const ef=efN[i]?efS[i]/efN[i]:null;
+    const dpct=totP[i]? totT[i]/totP[i]*100-100 : null;
+    const dl=dpct==null?null: Math.abs(dpct)<0.05? {cls:'flat',txt:'= sin cambio'} :
+      {cls:dpct>0?'up':'down', txt:`${dpct>0?'▲':'▼'} ${nf1.format(Math.abs(dpct))}% vs per. ant.`};
+    d.innerHTML=`<div class="k-label">Turno ${t}</div><div class="k-val">${fmtK(totT[i])}</div>`+
+      (F.compare&&dl?`<div class="delta ${dl.cls}">${dl.txt}</div>`:'')+
+      `<div class="k-sub">${totAll?nf1.format(totT[i]/totAll*100)+'% del total':'sin producción'}`+
+      `${ef!=null?' · efic. media '+nf1.format(ef)+'%':''}${diasT[i].size?' · '+diasT[i].size+' días':''}</div>`;
+    tiles.appendChild(d);
+  });
+
+  const g=el('div','grid g2'); main.appendChild(g);
+
+  makeCard(g,{title:'Producción semanal por turno', sub:'Cigarrillos por semana, apilado por turno', full:true,
+    legend,
+    table:{heads:['Semana del',...DATA.turnos.map(t=>'Turno '+t),'Total'],
+      rows:rows.map(r=>Object.assign([dLong(r.w),...r.t.map(fmt),fmt(sum(r.t))],{_sort:[r.w,...r.t,sum(r.t)]}))},
+    chart:plot=>{
+      if(!rows.some(r=>sum(r.t))){ plot.appendChild(el('div','empty','Sin minutas en el período (llegan hasta '+dLong(MAX_MINUTA)+').')); return; }
+      const W=plotW(plot),H=280,top_=14,bot=26,left=54,right=10, ih=H-top_-bot, iw=W-left-right;
+      const ymax=niceMax(Math.max(1,...rows.map(r=>sum(r.t))));
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,ymax,ih,top_);
+      const n=rows.length, slot=iw/n, bw=Math.min(30,slot*.6), X=i=>left+slot*(i+.5);
+      xLabels(g2,rows.map(r=>dShort(r.w)),X,H,iw);
+      rows.forEach((r,i)=>{
+        let y=top_+ih;
+        r.t.forEach((v,ti)=>{
+          if(!v) return; const bh=ih*v/ymax; y-=bh;
+          const rc=S('rect'); rc.setAttribute('x',X(i)-bw/2); rc.setAttribute('y',y+1);
+          rc.setAttribute('width',bw); rc.setAttribute('height',Math.max(bh-2,1));
+          rc.setAttribute('fill',css(cols[ti])); rc.setAttribute('rx',2); g2.appendChild(rc);
+        });
+        const hz=S('rect'); hz.setAttribute('x',X(i)-slot/2); hz.setAttribute('y',top_); hz.setAttribute('width',slot); hz.setAttribute('height',ih); hz.setAttribute('fill','transparent');
+        hz.addEventListener('mousemove',ev=>showTip(`<div class="t-h">Semana del ${dLong(r.w)}</div>`+
+          r.t.map((v,j)=>tipRow(css(cols[j]),'Turno '+DATA.turnos[j],fmtK(v))).join('')+tipRow('transparent','Total',fmtK(sum(r.t))),ev));
+        hz.addEventListener('mouseleave',hideTip); g2.appendChild(hz);
+      });
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Participación semanal', sub:'Porcentaje de cada turno sobre el total de la semana',
+    legend,
+    chart:plot=>{
+      const valid=rows.filter(r=>sum(r.t));
+      if(valid.length<2){ plot.appendChild(el('div','empty','Sin datos suficientes.')); return; }
+      const W=plotW(plot),H=230,top_=14,bot=26,left=40,right=12, ih=H-top_-bot, iw=W-left-right;
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,100,ih,top_,'');
+      const n=valid.length, slot=iw/n, X=i=>left+slot*(i+.5), Y=v=>top_+ih-ih*v/100;
+      xLabels(g2,valid.map(r=>dShort(r.w)),X,H,iw);
+      DATA.turnos.forEach((t,ti)=>{
+        const pl=S('polyline');
+        pl.setAttribute('points',valid.map((r,i)=>`${X(i)},${Y(r.t[ti]/sum(r.t)*100)}`).join(' '));
+        pl.setAttribute('fill','none'); pl.setAttribute('stroke',css(cols[ti])); pl.setAttribute('stroke-width',2); pl.setAttribute('stroke-linejoin','round');
+        g2.appendChild(pl);
+      });
+      const hv=S('rect'); hv.setAttribute('x',left); hv.setAttribute('y',top_); hv.setAttribute('width',iw); hv.setAttribute('height',ih); hv.setAttribute('fill','transparent'); g2.appendChild(hv);
+      hv.addEventListener('mousemove',ev=>{
+        const bb=svg.getBoundingClientRect(); const mx=(ev.clientX-bb.left)*W/bb.width;
+        const i=Math.min(n-1,Math.max(0,Math.round((mx-left)/slot-.5)));
+        const r=valid[i];
+        showTip(`<div class="t-h">Semana del ${dLong(r.w)}</div>`+
+          r.t.map((v,j)=>tipRow(css(cols[j]),'Turno '+DATA.turnos[j],nf1.format(v/sum(r.t)*100)+'%')).join(''),ev);
+      });
+      hv.addEventListener('mouseleave',hideTip);
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Eficiencia por turno y tipo', sub:'Promedio de la minuta: ¿algún turno rinde menos?',
+    legend,
+    chart:plot=>{
+      const tipos=['Cigarrilleras','Empaquetadoras','Filtreras'];
+      const s=tipos.map(()=>[[0,0],[0,0],[0,0]]);
+      fRend(R).forEach(r=>{
+        const ti2=tipos.indexOf(DATA.tipoMaquina[r[1]]||''); if(ti2<0) return;
+        s[ti2][r[2]][0]+=r[3]; s[ti2][r[2]][1]++;
+      });
+      const vals=s.map(g3=>g3.map(([a,n])=>n?a/n:null));
+      if(!vals.flat().some(v=>v!=null)){ plot.appendChild(el('div','empty','Sin minutas en el período (llegan hasta '+dLong(MAX_MINUTA)+').')); return; }
+      const W=plotW(plot),H=250,top_=14,bot=40,left=42,right=12, ih=H-top_-bot, iw=W-left-right;
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,100,ih,top_,'');
+      const gw=iw/tipos.length;
+      tipos.forEach((tp,gi)=>{
+        const xg=left+gw*gi+gw/2;
+        const t=S('text'); t.setAttribute('x',xg); t.setAttribute('y',H-22);
+        t.setAttribute('text-anchor','middle'); t.setAttribute('class','axis-t'); t.textContent=tp; g2.appendChild(t);
+        const act=[0,1,2].filter(ti2=>F.turnos.has(ti2)&&vals[gi][ti2]!=null);
+        const bw=Math.min(30,gw*.7/Math.max(act.length,1));
+        act.forEach((ti2,k)=>{
+          const v=vals[gi][ti2];
+          const x=xg-(act.length*bw+((act.length-1)*2))/2+k*(bw+2);
+          const bh=ih*Math.min(v,100)/100;
+          const rc=S('rect'); rc.setAttribute('x',x); rc.setAttribute('y',top_+ih-bh);
+          rc.setAttribute('width',bw); rc.setAttribute('height',Math.max(bh,1.5));
+          rc.setAttribute('fill',css(cols[ti2])); rc.setAttribute('rx',4);
+          rc.addEventListener('mousemove',ev=>showTip(`<div class="t-h">${tp} · Turno ${DATA.turnos[ti2]}</div>`+
+            tipRow(css(cols[ti2]),'Eficiencia media',nf1.format(v)+'%')+
+            tipRow('transparent','Registros',s[gi][ti2][1]),ev));
+          rc.addEventListener('mouseleave',hideTip);
+          g2.appendChild(rc);
+          const lb=S('text'); lb.setAttribute('x',x+bw/2); lb.setAttribute('y',top_+ih-bh-5);
+          lb.setAttribute('text-anchor','middle'); lb.setAttribute('class','dlab'); lb.textContent=Math.round(v)+'%';
+          g2.appendChild(lb);
+        });
+      });
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Máquina × turno', sub:'Producción del período; color = volumen dentro de la tabla', full:true,
+    table:(()=>{
+      const m=new Map();
+      fProd(R).forEach(r=>{const a=m.get(r[1])||[0,0,0]; a[r[2]]+=r[3]; m.set(r[1],a);});
+      const rws=[...m.entries()].map(([id,t])=>({name:DATA.maquinas[id]||('Máq. '+id),t,tot:sum(t)})).sort((a,b)=>b.tot-a.tot);
+      return {heads:['Máquina',...DATA.turnos.map(t=>'Turno '+t),'Total'],
+        rows:rws.map(r=>Object.assign([r.name,...r.t.map(fmt),fmt(r.tot)],{_sort:[r.name,...r.t,r.tot]}))};
+    })(),
+    chart:plot=>{
+      const m=new Map(), ef=new Map();
+      fProd(R).forEach(r=>{const a=m.get(r[1])||[0,0,0]; a[r[2]]+=r[3]; m.set(r[1],a);});
+      fRend(R).forEach(r=>{const k=r[1]+'|'+r[2]; const a=ef.get(k)||[0,0]; a[0]+=r[3]; a[1]++; ef.set(k,a);});
+      const rws=[...m.entries()].map(([id,t])=>({id,name:DATA.maquinas[id]||('Máq. '+id),t,tot:sum(t)}))
+        .filter(r=>r.tot).sort((a,b)=>b.tot-a.tot);
+      if(!rws.length){ plot.appendChild(el('div','empty','Sin minutas en el período (llegan hasta '+dLong(MAX_MINUTA)+').')); return; }
+      const mx=Math.max(...rws.map(r=>Math.max(...r.t)));
+      const ramp=['--seq1','--seq2','--seq3','--seq4','--seq5','--seq6'];
+      const act=[0,1,2].filter(i=>F.turnos.has(i) && rws.some(r=>r.t[i]));
+      const hm=el('div','hm');
+      hm.style.gridTemplateColumns=`minmax(100px,150px) repeat(${act.length},1fr) 70px`;
+      hm.appendChild(el('div','collab',''));
+      act.forEach(i=>hm.appendChild(el('div','collab','Turno '+DATA.turnos[i])));
+      hm.appendChild(el('div','collab','Total'));
+      rws.forEach(r=>{
+        hm.appendChild(el('div','rowlab',r.name));
+        act.forEach(ti2=>{
+          const v=r.t[ti2];
+          const cell=el('div','cell');
+          if(!v){ cell.style.background='transparent'; cell.style.border='1px solid '+css('--grid'); }
+          else {
+            const step=Math.min(5,Math.floor(v/mx*6));
+            cell.style.background=css(ramp[step]);
+            if(step>=4) cell.style.color='#fff';
+            cell.textContent=fmtK(v);
+          }
+          const e=ef.get(r.id+'|'+ti2);
+          cell.onmousemove=ev=>showTip(`<div class="t-h">${r.name} · Turno ${DATA.turnos[ti2]}</div>`+
+            tipRow(css(cols[ti2]),'Producción',fmt(v))+
+            (e?tipRow('transparent','Efic. media',nf1.format(e[0]/e[1])+'%'):'')+
+            (r.tot?tipRow('transparent','% de la máquina',nf1.format(v/r.tot*100)+'%'):''),ev);
+          cell.onmouseleave=hideTip;
+          hm.appendChild(cell);
+        });
+        const tot=el('div','cell',fmtK(r.tot));
+        tot.style.fontWeight='600';
+        hm.appendChild(tot);
+      });
+      plot.appendChild(hm);
+      plot.appendChild(el('div','hmleg','<span>0</span>'+ramp.map(c=>`<span class="b" style="background:${css(c)}"></span>`).join('')+`<span>${fmtK(mx)}</span>`));
+    }});
+}
+
+function tabTabaco(main){
+  const R=rango();
+  const rows=fTab(R).map(r=>({f:r[0],teo:r[1]||0,re:r[2]||0})).filter(r=>r.teo||r.re);
+  const g=el('div','grid g2'); main.appendChild(g);
+
+  makeCard(g,{title:'Consumo teórico vs. real', sub:'Kilos por fecha de minuta', full:true,
+    legend:[{name:'Teórico (kg)',col:css('--s1'),line:true},{name:'Real (kg)',col:css('--s2'),line:true}],
+    table:{heads:['Fecha','Teórico kg','Real kg','Dif. kg','Desvío'],
+      rows:rows.map(r=>Object.assign(
+        [dLong(r.f),fmt(r.teo),fmt(r.re),fmt(r.re-r.teo),
+         r.teo?((r.re-r.teo)/r.teo*100<=0?`<span class="st ok"><span class="dot"></span>${nf1.format((r.re-r.teo)/r.teo*100)}%</span>`:`<span class="st bad"><span class="dot"></span>+${nf1.format((r.re-r.teo)/r.teo*100)}%</span>`):'—'],
+        {_sort:[r.f,r.teo,r.re,r.re-r.teo,r.teo?(r.re-r.teo)/r.teo*100:0]}))},
+    chart:plot=>{
+      if(!rows.length){ plot.appendChild(el('div','empty','Sin datos de tabaco en el período.')); return; }
+      const W=plotW(plot),H=260,top_=14,bot=26,left=56,right=14, ih=H-top_-bot, iw=W-left-right;
+      const ymax=niceMax(Math.max(1,...rows.map(r=>Math.max(r.teo,r.re))));
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      yAxis(g2,left,W-right,ymax,ih,top_);
+      const n=rows.length, slot=iw/n, X=i=>left+slot*(i+.5), Y=v=>top_+ih-ih*v/ymax;
+      xLabels(g2,rows.map(r=>dShort(r.f)),X,H,iw);
+      [['teo','--s1'],['re','--s2']].forEach(([k,col])=>{
+        const pl=S('polyline'); pl.setAttribute('points',rows.map((r,i)=>`${X(i)},${Y(r[k])}`).join(' '));
+        pl.setAttribute('fill','none'); pl.setAttribute('stroke',css(col)); pl.setAttribute('stroke-width',2); pl.setAttribute('stroke-linejoin','round'); g2.appendChild(pl);
+        if(n<=40) rows.forEach((r,i)=>{
+          const c=S('circle'); c.setAttribute('cx',X(i)); c.setAttribute('cy',Y(r[k])); c.setAttribute('r',3);
+          c.setAttribute('fill',css(col)); c.setAttribute('stroke',css('--surface')); c.setAttribute('stroke-width',1.5); g2.appendChild(c);
+        });
+      });
+      const hv=S('rect'); hv.setAttribute('x',left); hv.setAttribute('y',top_); hv.setAttribute('width',iw); hv.setAttribute('height',ih); hv.setAttribute('fill','transparent'); g2.appendChild(hv);
+      hv.addEventListener('mousemove',ev=>{
+        const bb=svg.getBoundingClientRect(); const mx=(ev.clientX-bb.left)*W/bb.width;
+        const i=Math.min(n-1,Math.max(0,Math.round((mx-left)/slot-.5)));
+        const r=rows[i];
+        showTip(`<div class="t-h">${dLong(r.f)}</div>`+tipRow(css('--s1'),'Teórico',fmt(r.teo)+' kg')+tipRow(css('--s2'),'Real',fmt(r.re)+' kg')+
+          (r.teo?tipRow('transparent','Desvío',(r.re>=r.teo?'+':'')+nf1.format((r.re-r.teo)/r.teo*100)+'%'):''),ev);
+      });
+      hv.addEventListener('mouseleave',hideTip);
+      plot.appendChild(svg);
+    }});
+
+  makeCard(g,{title:'Desvío por minuta', sub:'(real − teórico) / teórico · azul = bajo teórico, rojo = exceso', full:true,
+    chart:plot=>{
+      const rws=rows.filter(r=>r.teo);
+      if(!rws.length){ plot.appendChild(el('div','empty','Sin datos con teórico en el período.')); return; }
+      const W=plotW(plot),H=210,top_=12,bot=26,left=46,right=12, ih=H-top_-bot, iw=W-left-right;
+      const vals=rws.map(r=>(r.re-r.teo)/r.teo*100);
+      const amax=niceMax(Math.max(2,...vals.map(Math.abs)));
+      const svg=svgEl(W,H), g2=S('g'); svg.appendChild(g2);
+      const Y=v=>top_+ih/2-(ih/2)*v/amax;
+      [amax,0,-amax].forEach(yv=>{
+        const y=Y(yv);
+        const ln=S('line'); ln.setAttribute('x1',left); ln.setAttribute('x2',W-right); ln.setAttribute('y1',y); ln.setAttribute('y2',y);
+        ln.setAttribute('stroke', yv===0?css('--baseline'):css('--grid')); g2.appendChild(ln);
+        const t=S('text'); t.setAttribute('x',left-6); t.setAttribute('y',y+3.5); t.setAttribute('text-anchor','end');
+        t.setAttribute('class','axis-t'); t.textContent=(yv>0?'+':'')+nf.format(yv)+'%'; g2.appendChild(t);
+      });
+      const n=rws.length, slot=iw/n, bw=Math.min(24,slot*.55), X=i=>left+slot*(i+.5);
+      xLabels(g2,rws.map(r=>dShort(r.f)),X,H,iw);
+      rws.forEach((r,i)=>{
+        const v=(r.re-r.teo)/r.teo*100;
+        const h=Math.abs(ih/2*v/amax);
+        const rc=S('rect'); rc.setAttribute('x',X(i)-bw/2);
+        rc.setAttribute('y', v>=0? Y(v): Y(0)+1);
+        rc.setAttribute('width',bw); rc.setAttribute('height',Math.max(h,1));
+        rc.setAttribute('fill', v>=0?css('--crit'):css('--s1')); rc.setAttribute('rx',3);
+        rc.addEventListener('mousemove',ev=>showTip(`<div class="t-h">${dLong(r.f)}</div>`+
+          tipRow(v>=0?css('--crit'):css('--s1'),'Desvío',(v>=0?'+':'')+nf1.format(v)+'%')+
+          tipRow('transparent','Dif.',fmt(r.re-r.teo)+' kg'),ev));
+        rc.addEventListener('mouseleave',hideTip);
+        g2.appendChild(rc);
+      });
+      plot.appendChild(svg);
+    }});
+}
+
+/* ================= render ================= */
+function renderAll(){
+  persist();
+  buildNav(); buildFilters(); buildActiveChips(); buildInsights();
+  const t=TABS.find(([id])=>id===TAB)||TABS[0];
+  document.getElementById('ptitle').textContent=t[1];
+  document.getElementById('psub').textContent=TABSUB[t[0]]||'';
+  const [a,b]=rango();
+  document.getElementById('rangeLbl').textContent =
+    `${dLong(a)} — ${dLong(b)}` + (F.compare? ` · comparando con ${dLong(rangoPrev()[0])} — ${dLong(rangoPrev()[1])}` : '');
+  renderKpis();
+  const main=document.getElementById('content'); main.innerHTML='';
+  ({resumen:tabResumen, planreal:tabPlanReal, marcas:tabMarcas, maquinas:tabMaquinas, turnos:tabTurnos, tabaco:tabTabaco}[TAB]||tabResumen)(main);
+  document.getElementById('foot').textContent =
+    `Fuente: Excel de Plan de Producción (plan y real diario por marca) y Minuta de reunión semanal EE4A (eficiencia y producción por turno por máquina, consumo de tabaco), cargados a Azure SQL por el ETL datos-produccion. Última carga: plan ${dLong(MAXDATE)} · minuta ${dLong(MAX_MINUTA)}. Cantidades del plan en unidades del Excel; producción de minuta en cigarrillos.`;
+}
+if(!TABS.some(([id])=>id===TAB)) TAB='resumen';
+addEventListener('resize',()=>{ clearTimeout(window.__rz); window.__rz=setTimeout(renderAll,150); });
+renderAll();
+</script>

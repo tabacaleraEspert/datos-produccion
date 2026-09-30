@@ -1,0 +1,177 @@
+Hola,
+
+Te envío el resumen de la Minuta (eficiencias de máquinas).
+
+  Minuta de reunion semanal EE4A 2026-01-21 v16 doble capsula.xlsx
+  Fecha de ejecución: 06/02/2026 16:24
+
+RESUMEN DE PASOS
+-----------------
+  1. Lectura del nombre del archivo: ✓ OK
+     Fecha: 2026-01-21
+     Versión: v16
+     archivo: /Users/davorvindis/Desktop/Repositories/datos-produccion/Minuta de reunion semanal EE4A 2026-01-21 v16 doble capsula.xlsx
+
+  2. Procesamiento de eficiencias (Datos crudos): ✓ OK
+     Resumen generado correctamente.
+     hoja: Datos crudos
+
+  3. Escritura del archivo de reporte: ✓ OK
+     Archivo generado: /Users/davorvindis/Desktop/Repositories/datos-produccion/reporte_minuta_email.txt
+     archivo_salida: /Users/davorvindis/Desktop/Repositories/datos-produccion/reporte_minuta_email.txt
+
+DETALLE POR MÁQUINA (Eficiencias)
+-------------------------------
+
+Archivo: /Users/davorvindis/Desktop/Repositories/datos-produccion/Minuta de reunion semanal EE4A 2026-01-21 v16 doble capsula.xlsx
+Fecha reunión: 2026-01-21  |  Versión: v16
+Semana de datos: lunes a domingo anterior a la reunión
+
+Filas a insertar en RendimientoReal: 90
+
+  Máquina 1: 11 registros
+    Rendimiento deseado: 67%
+    Velocidad deseada: 4200.0
+    Eficiencia promedio: 57.9%
+      2026-01-12 TD: 73.6%
+      2026-01-12 TJ: 72.9%
+      2026-01-13 TD: 65.1%
+      2026-01-13 TJ: 30.5%
+      2026-01-14 TD: 61.7%
+      2026-01-14 TJ: 69.3%
+      2026-01-15 TD: 59.2%
+      ... y 4 más
+
+  Máquina 3: 7 registros
+    Rendimiento deseado: 65%
+    Velocidad deseada: 140.0
+    Eficiencia promedio: 48.1%
+      2026-01-12 TD: 40.2%
+      2026-01-13 TD: 40.6%
+      2026-01-14 TD: 52.1%
+      2026-01-15 TD: 55.8%
+      2026-01-16 TD: 53.6%
+      2026-01-17 TD: 49.9%
+      2026-01-17 TJ: 44.6%
+
+  Máquina 4: 12 registros
+    Rendimiento deseado: 65%
+    Velocidad deseada: 160.0
+    Eficiencia promedio: 61.1%
+      2026-01-12 TD: 36.1%
+      2026-01-12 TJ: 65.8%
+      2026-01-13 TD: 44.9%
+      2026-01-13 TJ: 75.5%
+      2026-01-14 TD: 65.1%
+      2026-01-14 TJ: 70.0%
+      2026-01-15 TD: 63.8%
+      ... y 5 más
+
+  Máquina 5: 5 registros
+    Rendimiento deseado: 70%
+    Velocidad deseada: 125.0
+    Eficiencia promedio: 37.1%
+      2026-01-12 TD: 18.0%
+      2026-01-13 TD: 33.1%
+      2026-01-14 TD: 46.3%
+      2026-01-15 TD: 26.2%
+      2026-01-16 TD: 61.8%
+
+  Máquina 7: 5 registros
+    Rendimiento deseado: 70%
+    Velocidad deseada: 125.0
+    Eficiencia promedio: 45.1%
+      2026-01-12 TD: 13.3%
+      2026-01-13 TD: 68.2%
+      2026-01-14 TD: 41.1%
+      2026-01-15 TD: 56.1%
+      2026-01-16 TD: 46.9%
+
+  Máquina 8: 5 registros
+    Rendimiento deseado: 65%
+    Velocidad deseada: 150.0
+    Eficiencia promedio: 42.2%
+      2026-01-12 TD: 16.3%
+      2026-01-13 TD: 26.4%
+      2026-01-14 TD: 60.2%
+      2026-01-15 TD: 57.5%
+      2026-01-16 TD: 50.5%
+
+  Máquina 9: 5 registros
+    Rendimiento deseado: 65%
+    Velocidad deseada: 150.0
+    Eficiencia promedio: 20.8%
+      2026-01-12 TD: 1.4%
+      2026-01-13 TD: 9.1%
+      2026-01-14 TD: 24.7%
+      2026-01-15 TD: 22.1%
+      2026-01-16 TD: 46.5%
+
+  Máquina 10: 3 registros
+    Rendimiento deseado: 80%
+    Velocidad deseada: 3200.0
+    Eficiencia promedio: 31.3%
+      2026-01-12 TD: 53.1%
+      2026-01-13 TD: 7.6%
+      2026-01-16 TD: 33.1%
+
+  Máquina 13: 12 registros
+    Rendimiento deseado: 67%
+    Velocidad deseada: 6500.0
+    Eficiencia promedio: 44.2%
+      2026-01-12 TD: 61.7%
+      2026-01-12 TJ: 34.8%
+      2026-01-13 TD: 48.6%
+      2026-01-13 TJ: 20.8%
+      2026-01-14 TD: 60.4%
+      2026-01-14 TJ: 33.9%
+      2026-01-15 TD: 51.6%
+      ... y 5 más
+
+  Máquina 14: 7 registros
+    Rendimiento deseado: 80%
+    Velocidad deseada: 1800.0
+    Eficiencia promedio: 32.3%
+      2026-01-12 TJ: 14.8%
+      2026-01-13 TD: 61.1%
+      2026-01-13 TJ: 32.3%
+      2026-01-14 TD: 42.8%
+      2026-01-16 TD: 3.3%
+      2026-01-16 TJ: 32.1%
+      2026-01-17 TD: 39.6%
+
+  Máquina 16: 5 registros
+    Rendimiento deseado: 70%
+    Velocidad deseada: 275.0
+    Eficiencia promedio: 42.9%
+      2026-01-12 TD: 14.4%
+      2026-01-13 TD: 45.1%
+      2026-01-14 TD: 50.9%
+      2026-01-15 TD: 56.2%
+      2026-01-16 TD: 47.9%
+
+  Máquina 17: 6 registros
+    Rendimiento deseado: 70%
+    Velocidad deseada: 275.0
+    Eficiencia promedio: 23.0%
+      2026-01-12 TD: 7.6%
+      2026-01-13 TD: 19.1%
+      2026-01-14 TD: 32.8%
+      2026-01-15 TD: 22.9%
+      2026-01-16 TD: 53.2%
+      2026-01-17 TJ: 2.5%
+
+  Máquina 18: 7 registros
+    Rendimiento deseado: 80%
+    Velocidad deseada: 700.0
+    Eficiencia promedio: 27.5%
+      2026-01-14 TD: 9.8%
+      2026-01-14 TJ: 34.2%
+      2026-01-15 TD: 74.7%
+      2026-01-15 TJ: 31.7%
+      2026-01-16 TD: 3.9%
+      2026-01-17 TD: 12.0%
+      2026-01-17 TJ: 26.1%
+
+-----------------
+Saludos.

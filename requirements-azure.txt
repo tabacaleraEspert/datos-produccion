@@ -1,0 +1,5 @@
+# Dependencias para conexión a Azure SQL.
+# pyodbc no compila en Python 3.13 (cambio en la API C de Python).
+# Opciones: usar Python 3.11 o 3.12 para este proyecto, o instalar solo cuando necesites Azure:
+#   pip install -r requirements-azure.txt   # con Python 3.12
+pyodbc>=5.0.0

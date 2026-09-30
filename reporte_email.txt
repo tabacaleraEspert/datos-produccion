@@ -1,0 +1,314 @@
+Hola,
+
+Te envío el resumen de la ejecución del Plan de Producción.
+
+  Plan 255 del 26 al 31 ENE 2026 v 22 con marcas doble capsulas.xlsx
+  Fecha de ejecución: 03/02/2026 16:54
+
+RESUMEN DE PASOS
+-----------------
+  1. Lectura del nombre del archivo: ✓ OK
+     Plan ID: 255
+     Versión: v22
+     Período: 2026-01-26 a 2026-01-31
+     archivo: /Users/davorvindis/Desktop/Repositories/datos-produccion/Plan 255 del 26 al 31 ENE 2026 v 22 con marcas doble capsulas.xlsx
+
+  2. Procesamiento del Plan (resumen por marca): ✓ OK
+     Resumen generado correctamente.
+     hoja: Plan - Semanal
+
+  3. Escritura del archivo de reporte: ✓ OK
+     Archivo generado: /Users/davorvindis/Desktop/Repositories/datos-produccion/reporte_email.txt
+     archivo_salida: /Users/davorvindis/Desktop/Repositories/datos-produccion/reporte_email.txt
+
+DETALLE POR MARCA (Plan / Real)
+-------------------------------
+
+Archivo: /Users/davorvindis/Desktop/Repositories/datos-produccion/Plan 255 del 26 al 31 ENE 2026 v 22 con marcas doble capsulas.xlsx
+Plan ID: 255  |  Versión: v22  |  Período: 2026-01-26 a 2026-01-31
+Layout: Plan v22  |  Hoja: Plan - Semanal
+
+Filas procesadas: Plan 98, Real 105
+
+  MelbourneRed (Id 6)
+    Plan total semana:  2400
+    Real total semana:  5010
+    Plan por día:
+      2026-01-26: 600
+      2026-01-27: 600
+      2026-01-28: 600
+      2026-01-29: 600
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 942
+      2026-01-27: 1004
+      2026-01-28: 1292
+      2026-01-29: 1106
+      2026-01-30: 666
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MelbourneGold (Id 7)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MelbourneMint (Id 8)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MilenioRed (Id 9)
+    Plan total semana:  2100
+    Real total semana:  1738
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 700
+      2026-01-30: 700
+      2026-01-31: 700
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 574
+      2026-01-29: 517
+      2026-01-30: 369
+      2026-01-31: 278
+      2026-02-01: 0
+
+  MilenioGold (Id 10)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MilenioMint (Id 11)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MilenioClick (Id 12)
+    Plan total semana:  700
+    Real total semana:  1203
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 700
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 213
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 166
+      2026-01-30: 451
+      2026-01-31: 373
+      2026-02-01: 0
+
+  Mill (Id 13)
+    Plan total semana:  3000
+    Real total semana:  3151
+    Plan por día:
+      2026-01-26: 600
+      2026-01-27: 600
+      2026-01-28: 600
+      2026-01-29: 600
+      2026-01-30: 600
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 681
+      2026-01-27: 736
+      2026-01-28: 711
+      2026-01-29: 690
+      2026-01-30: 333
+      2026-01-31: 0
+      2026-02-01: 0
+
+  BoldRed (Id 14)
+    Plan total semana:  600
+    Real total semana:  426
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 600
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 426
+      2026-01-31: 0
+      2026-02-01: 0
+
+  BoldMint (Id 15)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MillExplosion (Id 17)
+    Plan total semana:  700
+    Real total semana:  619
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 700
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 38
+      2026-01-27: 543
+      2026-01-28: 38
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MilenioPink (Id 19)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MilenioVid (Id 20)
+    Plan total semana:  700
+    Real total semana:  761
+    Plan por día:
+      2026-01-26: 700
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 531
+      2026-01-27: 173
+      2026-01-28: 57
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+  MillMint (Id 50)
+    Plan total semana:  0
+    Real total semana:  0
+    Plan por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+    Real por día:
+      2026-01-26: 0
+      2026-01-27: 0
+      2026-01-28: 0
+      2026-01-29: 0
+      2026-01-30: 0
+      2026-01-31: 0
+      2026-02-01: 0
+
+-----------------
+Saludos.
