@@ -34,7 +34,12 @@ def buscar_marca(nombre: str):
 
 
 def conectar():
-    env = dotenv_values(Path(__file__).parent.parent / ".env")
+    """Conexión: variables de entorno primero (job/container), .env como fallback local."""
+    import os
+    env = {k: os.environ.get(k) for k in
+           ("AZURE_SQL_SERVER", "AZURE_SQL_DB", "AZURE_SQL_USER", "AZURE_SQL_PASSWORD")}
+    if not all(env.values()):
+        env = dotenv_values(Path(__file__).parent.parent / ".env")
     return pyodbc.connect(
         "DRIVER={ODBC Driver 18 for SQL Server};"
         f"SERVER={env['AZURE_SQL_SERVER']};DATABASE={env['AZURE_SQL_DB']};"

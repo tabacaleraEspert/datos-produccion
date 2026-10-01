@@ -1,0 +1,18 @@
+# Job de sync Drive → Azure SQL (formato unificado). Corre como Container Apps Job.
+FROM python:3.11-slim
+
+# Driver ODBC 18 de Microsoft (pyodbc)
+RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg2 ca-certificates \
+    && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/ms.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/ms.gpg] https://packages.microsoft.com/debian/12/prod bookworm main" \
+       > /etc/apt/sources.list.d/mssql.list \
+    && apt-get update && ACCEPT_EULA=Y apt-get install -y --no-install-recommends msodbcsql18 unixodbc \
+    && apt-get purge -y curl gnupg2 && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+RUN pip install --no-cache-dir pyodbc==5.2.0 openpyxl==3.1.5 python-dotenv==1.0.1 \
+    google-api-python-client==2.149.0 google-auth==2.35.0
+
+COPY src/unificado.py src/carga_unificado.py src/sync_unificado.py src/marcas.py src/
+
+CMD ["python", "src/sync_unificado.py"]
