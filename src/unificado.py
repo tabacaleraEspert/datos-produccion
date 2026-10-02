@@ -250,12 +250,19 @@ def parse_unificado(path: str | Path, buscar_id_marca) -> Dict[str, Any]:
                  "JUL": 7, "AGO": 8, "SEP": 9, "SEPT": 9, "OCT": 10, "NOV": 11, "DIC": 12}
         mes = meses.get(m.group(2).upper()[:4].rstrip("."), meses.get(m.group(2).upper()[:3]))
         if mes:
+            # El nombre "del 28 al 02 OCT" nombra el mes del FINAL: el día de
+            # inicio puede ser del mes anterior. Tolerancia amplia (45 días):
+            # alcanza para cazar placeholders (difieren por meses) sin falsos
+            # positivos en semanas que cruzan de mes.
             from datetime import date as _date
-            segun_nombre = _date(int(m.group(3)), mes, int(m.group(1)))
-            if abs((fechas[0][1] - segun_nombre).days) > 10:
+            try:
+                segun_nombre = _date(int(m.group(3)), mes, min(int(m.group(1)), 28))
+            except ValueError:
+                segun_nombre = None
+            if segun_nombre and abs((fechas[0][1] - segun_nombre).days) > 45:
                 raise ValueError(
                     f"{nombre}: la hoja dice semana {fechas[0][1]} pero el nombre dice "
-                    f"{segun_nombre} — plan sin completar, no se carga"
+                    f"~{segun_nombre} — plan sin completar, no se carga"
                 )
     # Lunes CALENDARIO de la semana (los planes de semana corta arrancan martes,
     # pero la grilla de Datos crudos siempre es Lun..Dom).
