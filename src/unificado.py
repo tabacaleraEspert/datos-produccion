@@ -234,10 +234,29 @@ def parse_unificado(path: str | Path, buscar_id_marca) -> Dict[str, Any]:
     faltan = {"Minuta", "Datos crudos", "Plan - Semanal"} - set(wb.sheetnames)
     if faltan:
         raise ValueError(f"{Path(path).name}: no es formato unificado (faltan hojas {faltan})")
+    nombre = Path(path).name
+    if "blanco" in nombre.lower():
+        raise ValueError(f"{nombre}: es la plantilla 'en Blanco', no se carga")
     ws_plan = wb["Plan - Semanal"]
     fechas = _fechas_semana(ws_plan)
     if not fechas:
-        raise ValueError(f"{Path(path).name}: sin fechas en Plan - Semanal fila 112")
+        raise ValueError(f"{nombre}: sin fechas en Plan - Semanal fila 112")
+    # Sanidad: la fecha de la hoja tiene que caer en el rango que dice el NOMBRE
+    # (un plan nuevo sin completar hereda las fechas placeholder de la plantilla
+    # y pisaría una semana histórica).
+    m = re.search(r"Plan\s+\d+\s+del\s+(\d{1,2})\s+al\s+\d{1,2}\s+([A-ZÁÉÍÓÚa-záéíóú]+)\s+(\d{4})", nombre)
+    if m:
+        meses = {"ENE": 1, "FEB": 2, "MAR": 3, "ABR": 4, "MAY": 5, "JUN": 6,
+                 "JUL": 7, "AGO": 8, "SEP": 9, "SEPT": 9, "OCT": 10, "NOV": 11, "DIC": 12}
+        mes = meses.get(m.group(2).upper()[:4].rstrip("."), meses.get(m.group(2).upper()[:3]))
+        if mes:
+            from datetime import date as _date
+            segun_nombre = _date(int(m.group(3)), mes, int(m.group(1)))
+            if abs((fechas[0][1] - segun_nombre).days) > 10:
+                raise ValueError(
+                    f"{nombre}: la hoja dice semana {fechas[0][1]} pero el nombre dice "
+                    f"{segun_nombre} — plan sin completar, no se carga"
+                )
     # Lunes CALENDARIO de la semana (los planes de semana corta arrancan martes,
     # pero la grilla de Datos crudos siempre es Lun..Dom).
     lunes = fechas[0][1] - timedelta(days=fechas[0][1].weekday())

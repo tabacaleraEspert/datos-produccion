@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl gnupg2 ca-
     && echo "deb [signed-by=/usr/share/keyrings/ms.gpg] https://packages.microsoft.com/debian/12/prod bookworm main" \
        > /etc/apt/sources.list.d/mssql.list \
     && apt-get update && ACCEPT_EULA=Y apt-get install -y --no-install-recommends msodbcsql18 unixodbc \
-    && apt-get purge -y curl gnupg2 && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 RUN pip install --no-cache-dir pyodbc==5.2.0 openpyxl==3.1.5 python-dotenv==1.0.1 \
