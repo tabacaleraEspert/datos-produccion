@@ -52,14 +52,15 @@ def listar(svc, carpetas: list[str], dias: int) -> list[dict]:
     for fid in carpetas:
         q = (f"'{fid}' in parents and name contains 'Villafranca' "
              f"and name contains 'Plan' and modifiedTime > '{desde}' and trashed = false")
-        r = svc.files().list(q=q, fields="files(id, name, modifiedTime)", pageSize=100).execute()
+        r = svc.files().list(q=q, fields="files(id, name, modifiedTime)", pageSize=100,
+                             includeItemsFromAllDrives=True, supportsAllDrives=True).execute()
         for f in r.get("files", []):
             vistos[f["id"]] = f
     return sorted(vistos.values(), key=lambda f: f["name"])
 
 
 def bajar(svc, file_id: str, destino: Path) -> None:
-    req = svc.files().get_media(fileId=file_id)
+    req = svc.files().get_media(fileId=file_id, supportsAllDrives=True)
     with open(destino, "wb") as fh:
         dl = MediaIoBaseDownload(fh, req)
         done = False
